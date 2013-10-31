@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DocShare</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container">
+
+    <div class="row banner">
+    <%= image_tag('globe.jpg', size: '200x200', class: "banner-image") %>
+      <h1 class="text">Welcome to Docshare</h1>
+      <p class="text">Your home for creating personalized wiki pages!</p>
+    </div>
+
+
+  <div class="fourteen columns nav">
+    <hr>
+    <ul class>
+      <li class="nav-tab"><%= link_to "Home", root_path, class: "nav-link" %></li>
+      <li class="nav-tab"><%= link_to "About", root_path, class: "nav-link" %></li>
+      <li class="nav-tab"><%= link_to "Sign up", root_path, class: "nav-link" %></li>
+      <li class="nav-tab"><%= link_to "Sign In", root_path, class: "nav-link" %></li>
+      <li class="nav-tab"><%= link_to "Index", root_path, class: "nav-link" %></li>
+    </ul>
+    <hr>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row"
+      <div class="four columns">
+      <h5>Create, edit, update all from one site!</h5>
+      </div>
+
+      <div class="eight columns">
+      <h3>Want a private wiki? We do offer that too!</h3>
+    
+        <div class="row">
+          <div class="three columns">
+          <h6>Allow only select users</h6>
+          </div>
+          <div class="two columns">
+          <p>Enable who may contribute to your wiki!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container banner">  
+    <% if flash[:notice] %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice] %>
+    </div>
+    <% elsif flash[:error] %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:error] %>
+    </div>
+    <% elsif flash[:alert] %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:alert] %>
+    </div>
+    <% end %>
+  </div>
+
+
+
+
+</div>
+<%= yield %>
+
+</body>
+</html>
