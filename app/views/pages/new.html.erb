@@ -1,0 +1,14 @@
+<h4>Welcome to your page!</h4>
+
+<div>
+<%= form_for @page do |f| %>
+
+  <%= f.label :title, 'Enter title here...'  %>
+  <%= f.text_field :title %>
+
+  <%= f.label :body, 'Enter your data here...' %>
+  <%= f.text_area :body, :size => "10x12" %>
+
+  <%= f.submit %>
+<% end %>
+</div>
