@@ -1,6 +1,6 @@
 <h4>Welcome to your page!</h4>
 
-<div>
+<div class="six columns">
 <%= form_for @page do |f| %>
 
   <%= f.label :title, 'Enter title here...'  %>
@@ -11,4 +11,11 @@
 
   <%= f.submit %>
 <% end %>
+</div>
+
+<div class="eight columns">
+  <h3>As will actually appear on your page:</h3>
+  <hr>
+  <div class="marked-text">
+  </div>
 </div>

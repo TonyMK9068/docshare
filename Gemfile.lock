@@ -83,6 +83,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    marked-rails (0.2.9.0)
     mime-types (1.25)
     mini_portile (0.5.2)
     multi_json (1.8.2)
@@ -160,6 +161,7 @@ DEPENDENCIES
   devise
   figaro
   jquery-rails
+  marked-rails
   pg
   rails (= 3.2.13)
   redcarpet
