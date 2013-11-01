@@ -1,22 +1,16 @@
-
-Given /^user "(.+)" is not signed in$/ do |u|
-  @current_user = User.find_by_username!(u)
-  @current_user.user_signed_in? == false
+Given /^I am not signed in$/ do
+  page.driver.submit :delete, "/users/sign_out", {}
 end
 
-Given /^user "(.+)" is signed in$/ do |u|
-  @current_user = User.find_by_username!(u)
-  @current_user.user_signed_in? == true
-end
 
-When /^user "(.+)" visits the website$/ do |u|
+When /^I visit the website$/ do
   visit(root_path)
 end
 
-Then /^user "(.+)" should see the "[^\"]*" link$/ do |u, selector|
-  page.should have_css(selector)
+Then /^I should see the (.*) link$/ do |selector|
+  page.has_link?('#{selector}')
 end
 
-Then /^user "(.+)" should not see the "[^\"]*" link$/ do |u, selector|
-  page.should_not have_css(selector)
+Then /^I should not see the (.*) link$/ do |selector|
+  page.has_no_selector?('#{selector}')
 end
