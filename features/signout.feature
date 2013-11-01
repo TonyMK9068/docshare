@@ -5,7 +5,7 @@ Feature: Users are able to sign in and out
 
   Scenario: User decides to sign out
   Given I am logged in
-  When I click logout
+  When I click 'Log out'
   Then I should see 'Signed out successfully.'
 
   Scenario: User decides to sign in

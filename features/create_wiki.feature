@@ -4,5 +4,5 @@ Feature: In order to provide the user with a service
 
   Scenario: User creates wiki page
   Given I am logged in
-  When I click 'Create new wiki'
+  When I click 'New Page'
   Then I should be redirected to a new wiki instance

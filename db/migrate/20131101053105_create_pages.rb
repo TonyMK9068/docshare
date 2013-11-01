@@ -4,7 +4,7 @@ class CreatePages < ActiveRecord::Migration
       t.string :title
       t.text :body
       t.references :user
-      t.boolean :public
+      t.boolean :public, default: false
 
 
       t.timestamps

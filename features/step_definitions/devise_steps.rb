@@ -19,10 +19,11 @@ Given /^I am logged in$/ do
   fill_in 'Email', with: 'member@exampple.com'
   fill_in 'Password', with: 'helloworld'
   click_button 'Sign in'
+  @user = User.where(:id => 1)
 end
 
-When /^I click logout$/ do
-  click_link 'Log out'
+When /^I click 'Log out'$/ do
+  click_link("Log out")
 end
 
 Then /^I should see 'Signed out successfully.'$/ do
@@ -35,5 +36,5 @@ end
 
 
 When /^I click 'Sign In'$/ do
-  click_link 'Sign In'
+  click_link("Sign In")
 end

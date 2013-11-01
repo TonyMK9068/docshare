@@ -39,7 +39,6 @@ ul {
   font-size:14px;
   text-align:center;
   text-decoration:none;
-  text-transform:uppercase;
   font-weight:bold;
   padding-top:10px;
   margin:0;
@@ -82,3 +81,4 @@ ul {
 .root-info {
   margin-top:70px;
 }
+

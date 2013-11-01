@@ -9,6 +9,13 @@
   <%= f.label :body, 'Enter your data here...' %>
   <%= f.text_area :body, :size => "10x12" %>
 
+
+  <fieldset>
+  <label for="">Make page available to public?</label>
+  <%= f.radio_button :public, true %> <span> Yes, make it public</span> </br>
+  <%= f.radio_button :public, false %> <span>No, keep it private </span>
+ </fieldset>
+
   <%= f.submit %>
 <% end %>
 </div>
