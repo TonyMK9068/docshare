@@ -3,11 +3,11 @@ When /^I click 'New Page'$/ do
 end
 
 Then /^I should be redirected to a new wiki instance$/ do
-  has_text?('Enter your data here...')
+  page.has_text?('Enter your data here...')
 end
 
 Given /^I am creating a new page$/ do
-  visit('/pages/new')
+  visit(new_page_path)
 end
 
 When /^I enter markdown$/ do
@@ -15,7 +15,7 @@ When /^I enter markdown$/ do
 end
 
 Then /^I should see the text formatted in real time$/ do
-  has_field?(p, :with => 'hello world')
+  page.has_field?(p, :with => 'hello world')
 end
 
 Then /^I should be able to make it public$/ do

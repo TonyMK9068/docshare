@@ -1,17 +1,24 @@
-<div class="row banner">
-  <h1 class="text">Welcome to Docshare</h1>
-  <p class="text">Your home for creating personalized wiki pages!</p>
+<div class="banner">
+<h1 id="type-writer">Welcome to DocShare</h1> 
+</div>
+<div>
+<h5 class="text">Your home for creating personalized wiki pages!</h5>
 </div>
 
 <div class="root-info">
 <hr>
   <div class="row">
     <div class="eight columns alpha">
-    <h3>Create, edit, update all from one site!</h3>
+    <h3> 
+    Create and share easily!
+    </h3>
+    <p id="text-insert"></p>
     </div>
     <div class="eight columns omega">
-    <h3>Want a private wiki? We do offer that too!</h3>
-    <p>Enable who may contribute to your wiki!</p>
+    <h3>Do you prefer Markdown language?</h3>
+    <p> We offer real time Markdown rendering! <%= button_tag(type: 'button', class: 'special') do  %>
+    <%= content_tag(:strong, 'Try it!') %>
+    <% end %>
     </div>
   </div>
 </div>

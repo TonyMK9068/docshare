@@ -12,5 +12,11 @@ has_many :pages
   # attr_accessible :title, :body
 validates_presence_of :username
 validates_uniqueness_of :username
+  
+
+
+ def update_user_subscribed
+  self.update_attribute(:subscriber, true)
+ end
 
 end

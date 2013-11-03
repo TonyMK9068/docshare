@@ -133,7 +133,7 @@ Devise.setup do |config|
   # config.extend_remember_period = false
 
   # Options to be passed to the created cookie. For instance, you can set
-  # :secure => true in order to force SSL only cookies.
+  # :secure => true in order to force SSL only cookies.a
   # config.rememberable_options = {}
 
   # ==> Configuration for :validatable
@@ -254,4 +254,6 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+  #path_to_redirect_to
 end
+

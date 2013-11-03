@@ -12,11 +12,15 @@
 
   <fieldset>
   <label for="">Make page available to public?</label>
-  <%= f.radio_button :public, true %> <span> Yes, make it public</span> </br>
-  <%= f.radio_button :public, false %> <span>No, keep it private </span>
+  <% if can? :make_private, Page %>
+  <%= f.radio_button :public, false %> <span>No, keep it private </span> </br>
+  <%= f.radio_button :public, true %> <span> Yes, make it public</span>
+ <% else %>
+   <%= f.radio_button :public, true %> <span> Only, subscribers can create private pages</span>
  </fieldset>
+ <% end %>
 
-  <%= f.submit %>
+  <%= f.submit 'Save', class: 'button' %>
 <% end %>
 </div>
 

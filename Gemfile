@@ -17,8 +17,11 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'simplecov'
 end
-
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -33,3 +36,5 @@ gem 'devise'
 gem 'figaro'
 gem 'redcarpet'
 gem 'marked-rails'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'cancan'

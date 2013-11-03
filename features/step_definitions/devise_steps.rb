@@ -15,11 +15,13 @@ Then /^I should see 'A message with a confirmation link...'$/ do
 end
 
 Given /^I am logged in$/ do
+  u = User.new(email: 'text@xample.com', password: 'helloworld', password_confirmation: 'helloworld', username: 'example')
+  u.skip_confirmation!
+  u.save 
   visit(new_user_session_path)
-  fill_in 'Email', with: 'member@exampple.com'
+  fill_in 'Email', with: 'text@xample.com'
   fill_in 'Password', with: 'helloworld'
   click_button 'Sign in'
-  @user = User.where(:id => 1)
 end
 
 When /^I click 'Log out'$/ do

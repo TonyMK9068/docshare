@@ -1,0 +1,173 @@
+@import 'base';
+@import 'layout';
+@import 'skeleton';
+
+body {
+  color:white;
+   background-color:#474746;
+}
+
+
+
+body h1, h2, h3, h4, h5, h6, p, a {
+  color:white;
+
+}
+
+  a:visited {
+  text-decoration:none;
+  color:white;
+  }
+
+a {
+  text-decoration:none;
+}
+.circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    background-color: #FF9C5B;
+    display: inline-block;
+}
+
+
+button.special {
+border: 1px solid #CC0000;
+border-top: 1px solid #CC0000;
+border-left: 1px solid #CC0000;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+display: inline-block;
+font-weight: bold;
+text-decoration: none;
+cursor: pointer;
+margin-bottom: 20px;
+line-height: normal;
+padding: 8px 10px;
+font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+background-color:#CC0000;
+
+  strong {
+  color:white;
+  font-size: 14px;
+  text-shadow: 0;
+  }
+}
+
+.root-info{
+  text-align:center;
+}
+div.demo-row {
+  position:relative;
+  width:75%;
+  left:25%;
+}
+
+
+.demo-text {
+  font-size:20px;
+  display:inline;
+}
+
+#demo-input {
+  display:inline;
+  float:left;
+  margin-right:20px;
+}
+
+ul {
+  margin:0;
+  padding:0;
+  height:40px;
+}
+.nav {
+  height:40px;
+  margin-top:25px;
+}
+
+.nav-tab {
+  display:inline-block;
+  position:relative;
+  left:420px;
+  margin-right:20px;
+  margin-left:20px;
+  }
+
+.account {
+  display:inline-block;
+  float:right;
+  }
+
+#type-writer {
+    color: white;
+}
+a.nav-link {
+  display:block;
+  width:85px;
+  font-size:15px;
+  text-align:center;
+  text-decoration:none;
+  font-weight:bold;
+  margin:0;
+  height:25px;
+  text-transform: uppercase;
+  color:white;
+  padding-top:5px;
+  padding-bottom:5px;
+
+}
+
+.banner {
+  height:88px;
+  text-align: center;
+}
+
+.text {
+  font-size:16px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.alert {
+  color:white;
+  background-color:rgba(247, 235, 2, .7);
+  padding:5px;
+  font-size:20px;
+  font-family:Verdana;
+  text-align:left;
+  border:2px solid #B2B200;
+}
+
+.alert.alert-error {
+  background-color:#FF0000;
+  border:2px solid #990000;
+}
+
+.alert.alert-info {
+  background-color:rgba(19, 114, 191, .7);
+  border:2px solid #003D99;
+}
+
+.root-info {
+  margin-top:70px;
+}
+
+.pages {
+  margin-top:80px;
+}
+
+.hidden {
+  display:none;
+}
+
+.page-index {
+  border-left:1px solid #CC0000;
+  border-bottom:1px solid #CC0000;
+}
+
+.page-link{
+  font-size:18px;
+  margin:20px;
+}

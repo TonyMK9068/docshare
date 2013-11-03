@@ -1,0 +1,10 @@
+<h2>Your payment has been recieved <%= current_user.username %></h2>
+
+Thank you for being a subscriber at docshare!
+
+<%= @customer.subscription[:status] %>
+
+
+ <script src="https://api.stripe.com/v1/customers/{CUSTOMER_ID}" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-id=" <%= @customer %> "></script>
