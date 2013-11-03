@@ -21,17 +21,37 @@ class PagesController < ApplicationController
   end
 
   def edit
+    @page = Page.find(params[:id])
+    authorize! :update, @page, message: "You must have created the page in order to edit it"
+
   end
 
   def update
+    @page = Page.find(params[:id])
+    authorize! :update, @page, message: "You must have created the page in order to edit it"
+    if @page.update_attributes(params[:page])
+      flash[:notice] = "Update successful"
+      redirect_to @page
+    else
+      flash[:error] = "Error updating. Please try again later"
+      render :index
   end
+end
 
   def show
     @page = Page.find(params[:id])
-    authorize! :read, Page
+    authorize! :read, @page, message: 'You must be registered and approved to view this page'
   end
 
   def destroy
+    @page = Page.find(params[:id])
+    authorize! :destroy, @page, message: 'Must be page creator to delete'
+    if @page.destroy
+      flash[:notice] = "Page successfully deleted."
+      redirect_to pages_path
+    else
+      flash[:error] = 'Error deleting page, check permissions'
+      render :index
+    end
   end
-
 end
