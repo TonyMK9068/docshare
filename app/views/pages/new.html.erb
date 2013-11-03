@@ -12,7 +12,7 @@
 
   <fieldset>
   <label for="">Make page available to public?</label>
-  <% if can? :make_private, Page %>
+  <% if can? :make_private, @page %>
   <%= f.radio_button :public, false %> <span>No, keep it private </span> </br>
   <%= f.radio_button :public, true %> <span> Yes, make it public</span>
  <% else %>

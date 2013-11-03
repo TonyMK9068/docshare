@@ -1,15 +1,22 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+    def initialize(user)
 
     user ||= User.new # guest user (not logged in)
 
-    if user.created_at
+    if user.subscriber == true
         can [:create, :read, :update, :destroy], Page, :user_id => user.id
-        can :make_private, Page if user.subscriber
+        can :make_private, Page
+        can :create, Stripe::Charge, :email => user.email
+
     end
- end
+    if user.confirmed_at
+        can [:create, :read, :update, :destroy], Page, :user_id => user.id
+        can :create, Stripe::Charge, :email => user.email
+    end
+
+    end
 end
 
     #   if user.admin?

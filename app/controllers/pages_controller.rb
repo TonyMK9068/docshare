@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def index
     @pages = current_user.pages.all
+    authorize! :create, Page, message: "You need to be registered!"
   end
 
   def new

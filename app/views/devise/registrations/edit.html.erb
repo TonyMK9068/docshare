@@ -26,10 +26,32 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
 
 <div>
+  <% if current_user.subscriber %>
+  <div>You are a subscriber. Thanks!</div>
+  <% else %>
+  <div>
   <h3>Upgrade Account?</h3>
-  <%= link_to "Subscribe", new_charge_path, :class => 'button' %>
+
+<%= form_tag charges_path do %>
+  <article>
+    <label class="amount">
+
+      <span>As a subscriber you able to make private pages and to allow other users to contribute to your work! </span>
+      <p>Subscription is : $4.99 billed due monthly</p>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          data-currency="usd"
+          data-amount="499"></script>
+<% end %>
+</div>
+<% end %>
 </div>
 
 <div class="row">
 <%= link_to "Back", :back %>
 </div>
+
