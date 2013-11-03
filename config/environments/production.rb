@@ -21,7 +21,7 @@ Docshare::Application.configure do
   config.assets.digest = true
 
 
-config.action_mailer.default_url_options = { :host => 'docshare.herokuapp.com/.com' }
+config.action_mailer.default_url_options = { :host => 'docshare.herokuapp.com' }
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
