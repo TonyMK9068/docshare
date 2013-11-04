@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
     
-has_many :pages
+has_many :pages, dependent: :destroy
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, 
@@ -13,8 +13,6 @@ has_many :pages
 validates_presence_of :username
 validates_uniqueness_of :username
   
-
-
  def update_user_subscribed
   self.update_attribute(:subscriber, true)
  end

@@ -90,14 +90,9 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  $('.account').hover(
-    function() {
-      $('.hidden').slideDown('slow');
-      $('.account').css('border-right', '3px solid #CC0000');
-    }, function() {
-      $('.hidden').slideUp('slow');
-      $('.account').css('border-right', '');
-    }
-  );
+  $('.account').click(function() {
+      $('#account-options').slideToggle('1200');
+      $('.two.columns.dropdown a.nav-link').css('color', '#6A6A69');
+      $('.two.columns.dropdown a.nav-link').css('background-color', 'white');
+    });
 });
-

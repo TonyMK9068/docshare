@@ -5,10 +5,10 @@ Feature: Users are able to sign in and out
 
   Scenario: User decides to sign out
   Given I am logged in
-  When I click 'Log out'
+  When I log out
   Then I should see 'Signed out successfully.'
 
   Scenario: User decides to sign in
   Given I am not signed in
-  When I click 'Sign In'
+  When I sign in
   Then I should see 'Signed in successfully.'

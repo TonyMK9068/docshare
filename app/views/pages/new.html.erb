@@ -1,6 +1,8 @@
-<h4>Welcome to your page!</h4>
+<div class="seven columns offset-by-four ">
+<h2 class="banner">Welcome to your page!</h2>
+</div>
 
-<div class="six columns">
+<div class="five columns fixed-form">
 <%= form_for @page do |f| %>
 
   <%= f.label :title, 'Enter title here...'  %>
@@ -24,9 +26,10 @@
 <% end %>
 </div>
 
-<div class="eight columns">
-  <h3>As will actually appear on your page:</h3>
+<div class="ten columns">
+  <h4>As will actually appear on your page:</h4>
   <hr>
-  <div class="marked-text">
+  <div class="overflow">
+  <pre class="marked-text"> </pre>
   </div>
 </div>

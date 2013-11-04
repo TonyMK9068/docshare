@@ -1,18 +1,39 @@
+
 <h1> Hello <%= current_user.username %> </h1>
+<div class="four columns">
+
 <p> You have <%= @pages.count %> pages! </p>
 <p>Select one from below to view or edit!</p>
-<div>
-  <div>
 
-  <div>
   <% @pages.each do |page| %>
     <div class="page-link">
     <%= link_to(  page.title , page, class: "page-index") %>
     </div>
     <% end %>
-  </div>
-
-  </div>
 </div>
 
-<%= current_user.subscriber %>
+<div class="six columns offset-by-two">
+<% if current_user.subscriber %>
+<h5 class="charge-success">Thank you for subscribing!</h5>
+<% else %>
+<div>
+<h3>Upgrade Account?</h3>
+
+<%= form_tag charges_path do %>
+  <article>
+    <label class="amount">
+
+      <span>As a subscriber you're allowed access to privacy controls for your pages and given the ability to  define contributors to each page </span>
+      <p>Subscription is : $4.99 billed due monthly</p>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          data-currency="usd"
+          data-amount="499"></script>
+  <% end %>
+</div>
+<% end %>
+</div>

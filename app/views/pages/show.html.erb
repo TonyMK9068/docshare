@@ -7,3 +7,5 @@
 
 <div><%= link_to 'Edit Page', edit_page_path %></div>
 <div><%= link_to 'Delete Page', @page, method: :delete %></div>
+
+<h2>Page is  <%= @page.public ? 'public' : 'private' %> </h2>

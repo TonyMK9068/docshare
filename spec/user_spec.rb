@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe User do
+
   describe "#update_user_subscribed" do
     it "updates the user attribute :subscriber to true or false" do
       user = create(:user)
@@ -8,4 +9,5 @@ describe User do
       user.subscriber.should be(true)
     end
   end
+
 end

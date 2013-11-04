@@ -1,6 +1,9 @@
-<h1>Pages#edit</h1>
-<p>Find me in app/views/pages/edit.html.erb</p>
+<div class="ten columns offset-by-one ">
+<h2>Edit content or settings for: <%= @page.title %></h2>
+</div>
 
+
+<div class="five columns fixed-form">
 <%= form_for @page, :method => :put do |f| %>
 <%=f.label :title  %>
 <%= f.text_field :title, :value => @page.title %>
@@ -8,3 +11,12 @@
 <%= f.text_area :body, :value => @page.body %>
 <%= f.submit %>
 <% end %>
+</div>
+
+<div class="ten columns edit-content">
+  <h4>As will actually appear on your page:</h4>
+  <hr>
+  <div class="overflow">
+  <pre class="marked-text"> </pre>
+  </div>
+</div>
