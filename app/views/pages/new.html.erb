@@ -1,32 +1,30 @@
-<div class="seven columns offset-by-four ">
+
+<div class="eleven columns offset-by-four ">
+<div class="row">
 <h2 class="banner">Welcome to your page!</h2>
+</div>
 </div>
 
 <div class="five columns fixed-form">
 <%= form_for @page do |f| %>
-
   <%= f.label :title, 'Enter title here...'  %>
   <%= f.text_field :title %>
-
   <%= f.label :body, 'Enter your data here...' %>
   <%= f.text_area :body, :size => "10x12" %>
-
-
-  <fieldset>
-  <label for="">Make page available to public?</label>
-  <% if can? :make_private, @page %>
-  <%= f.radio_button :public, false %> <span>No, keep it private </span> </br>
-  <%= f.radio_button :public, true %> <span> Yes, make it public</span>
- <% else %>
-   <%= f.radio_button :public, true %> <span> Only, subscribers can create private pages</span>
- </fieldset>
- <% end %>
-
+  <% if current_user.subscriber %>
+    <div>
+    <%= f.radio_button :public, false, checked: @page.public %> <span>Yes, I want privacy </span> </br>
+    <%= f.radio_button :public, true, checked: @page.public %> <span> No, allow all to see!</span><br/>
+    <small>Note: Privacy settings can my edited at any time.</small>
+    </div>
+    <% else %>
+    <small>Upgrade account to make this page private</small><br />
+    <% end %>
   <%= f.submit 'Save', class: 'button' %>
 <% end %>
 </div>
 
-<div class="ten columns">
+<div class="eleven columns">
   <h4>As will actually appear on your page:</h4>
   <hr>
   <div class="overflow">

@@ -1,42 +1,45 @@
 def create_page
   @page = FactoryGirl.create(:page)
+  @page
 end
 
 Given /^I am logged in premium$/ do
-  sign_in
+  create_subscriber
+  visit '/users/sign_in'
+  fill_in "Email", :with => @user[:email]
+  fill_in "Password", :with => @user[:password]
+  click_button 'Sign in'
 end
 
 Given /^I have a page that is public$/ do
-  create_page
-  @page.update_attributes(:user => @user)
+  @page = FactoryGirl.create(:page, :user => @user, :public => true)
 end
 
 Given /^I have a page that is private$/ do
-  create_page
-  @page.update_attributes(:user => @user, :public => false)
+  @page = FactoryGirl.create(:page, :user => @user, :public => false)
 end
 
 When /^I edit the page$/ do
-  visit 'pages/index'
-  click_button('Edit')
+  visit(edit_page_path(@page))
 end
 
 Then /^I can set it to private$/ do
-  click_button('Private')
-  page.should have_content('Page is now private')
+  click_link("Privacy Settings")
+  page.should have_content('Change privacy?')
 end
 
 Then /^I can set it to public$/ do
-  click_button('Public')
-  page.should have_content('Page is now public')
+  click_on('Privacy Settings')
+  page.should have_content('Change privacy?')
 end
 
 Then /^I can add collaborators$/ do
-  click_button('Add users')
-  page.should have_content('Submit users by email username')
+  click_on 'Add User'
+  page.should have_content('Add collaborators by email or username')
 end
 
 Then /^I can authorize users that may view it$/ do
-  click_button('Privacy Settings')
-  page.should have_content('Submimt users who may view this page')
+  click_on('Privacy Settings')
+  click_on('Set Exceptions')
+  page.should have_content('Please enter their username or email in the text box')
 end

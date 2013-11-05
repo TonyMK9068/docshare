@@ -17,5 +17,5 @@ Then /^I should see the (.*) link$/ do |selector|
 end
 
 Then /^I should not see the (.*) link$/ do |selector|
-  page.should_not have link selector
+  page.should_not have_content(selector)
 end

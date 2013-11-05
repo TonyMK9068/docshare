@@ -1,11 +1,16 @@
-<h4><%= @page.title %></h4> 
 
-
-<div>
-<p> <%= markdown(@page.body)  %> </p>
+<div class="sixteen columns edit-page">
+<h2><%= @page.title %></h2> 
 </div>
 
-<div><%= link_to 'Edit Page', edit_page_path %></div>
-<div><%= link_to 'Delete Page', @page, method: :delete %></div>
+<div class="fourteen columns off-set-by-one">
+<div class="row">
+<p> <%= markdown(@page.body)  %> </p>
+</div>
+</div>
 
-<h2>Page is  <%= @page.public ? 'public' : 'private' %> </h2>
+<div class="three columns">
+<%= link_to 'Edit Page', edit_page_path, class: 'button' %>
+<div><%= link_to 'Delete Page', @page, method: :delete, class: 'button' %>
+</div>
+

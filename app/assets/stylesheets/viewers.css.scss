@@ -1,0 +1,23 @@
+
+
+body, html { margin:0; padding:0; }
+#modalTabelGray
+{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    filter:alpha(opacity=60);
+    opacity:0.6;
+    -moz-opacity:0.6;
+    z-index:100;
+
+    text-align:center;
+    vertical-align:middle;
+}
+
+#modalDiv
+{
+    position:absolute;
+    z-index:101;
+}

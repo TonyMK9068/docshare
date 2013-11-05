@@ -12,3 +12,13 @@ Feature: Users are able to sign in and out
   Given I am not signed in
   When I sign in
   Then I should see 'Signed in successfully.'
+
+  Scenario: User decides to sign out
+  Given I am logged in
+  When I log out
+  Then I should see 'Signed out successfully.'
+
+  Scenario: User decides to sign out
+  Given I am logged in
+  When I log out
+  Then I should be redirected to the home page

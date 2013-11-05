@@ -33,7 +33,7 @@
     <li class="nav-tab two columns"><%= link_to "home", pages_path, class: "home nav-link" %></li>
     <li class="nav-tab two columns"><%= link_to "about", about_path, class: "about nav-link" %></li>
     <li class="nav-tab two columns"><%= link_to "new page", new_page_path, class: "nav-link" %></li>
-    <li class="nav-tab two columns account"><%= link_to "acount", '#', class: "nav-link" %>
+    <li class="nav-tab two columns account"><%= link_to "account", '#', class: "nav-link" %>
       <div id="account-options" class="hidden">
         <ul>
         <li class="two columns dropdown"><%= link_to "log out", destroy_user_session_path, method: :delete, class: "nav-link logout" %></li>
@@ -55,11 +55,12 @@
   </ul>
   </div>
   <% end %>
+</div>
 
-<div class="insert sixteen columns">
+<div class="container insert">
   <%= yield %>
   </div>
-</div>
+
 
 <%= javascript_include_tag "application" %>
 

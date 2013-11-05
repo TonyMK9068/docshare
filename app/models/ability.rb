@@ -1,44 +1,35 @@
 class Ability
-  include CanCan::Ability
+    include CanCan::Ability
 
     def initialize(user)
 
-    user ||= User.new # guest user (not logged in)
+        user ||= User.new # guest user (not logged in)
 
         if user.subscriber == true
-            can [:create, :read, :update, :destroy, :make_private], Page, :user_id => user.id
+            can :manage, Page, :user_id => user.id
             can :create, Stripe::Charge, :email => user.email
 
+
+            user.pages.each do |access| 
+                can [:create, :destroy], Collaborator, :user_id => user.id
+                can [:create, :destroy], Viewer, :user_id => user.id
+            end
         end
 
         if user.confirmed_at
             can [:create, :read, :update, :destroy], Page, :user_id => user.id
             can :create, Stripe::Charge, :email => user.email
+            #collaborators may only update read a page when the page_ids match
+            user.collaborators.each do |access|
+                can [:update, :read], Page, :id => access.page_id
+            end
+
+            user.viewers.each do |access|
+                can :read, Page, :id => access.page_id
+            end
         end
+
+    can  :read, Page, public: true # option for visitors
 
     end
 end
-
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user 
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. 
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/ryanb/cancan/wiki/Defining-Abilities

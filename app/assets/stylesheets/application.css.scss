@@ -147,13 +147,6 @@ a.nav-link {
   margin-top:70px;
 }
 
-.insert {
-z-index:-1;
-position:absolute;
-left:0%;
-top:180px;
-
-}
 
 .hidden {
   display:none;
@@ -190,13 +183,53 @@ z-index:5;
 }
 
 .fixed-form{
-  position:fixed;
+
 }
 
 .overflow {
   overflow:auto;
 }
 
-.edit-content {
-  margin-top:30px;
+
+.add-collabs {
+  position:relative;
+  left:-50%;
+  down:100%;
+}
+
+.collab-form {
+  down:50%  
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse:collapse;
+  width:100%
+}
+
+td {
+  text-align:left;
+  vertical-align:center;
+  padding:15px;
+}
+
+th {
+  background-color: black;
+  color:white;
+  font-style:strong;
+}
+
+.edit-page {
+  text-align:center;
+}
+
+.collab-popup{
+  z-index:100;
+  position:absolute;
+  right:50%;
+  background-color:rgba(19, 9, 6, 1);
+  color:white;
 }

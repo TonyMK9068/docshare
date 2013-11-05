@@ -3,9 +3,9 @@ def create_visitor
 end
 
 def create_subscriber
-  create_user
-  @user.update_attributes(:subscriber => true)
-  @user
+  create_visitor
+  delete_user
+  @user = FactoryGirl.create(:user, :subscriber => true)
 end
 
 def find_user
@@ -22,7 +22,7 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, email: @visitor[:email])
+  @user = FactoryGirl.create(:user)
 end
 
 def delete_user
@@ -73,6 +73,53 @@ When /^I sign in$/ do
   sign_in
 end
 
+When /^I register without entering a username$/ do
+  create_visitor
+  delete_user
+  visit '/users/sign_up'
+  fill_in "user_password", :with => @visitor[:password]
+  fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  click_button('Sign up')
+end
+
+When /^I register without entering a password$/ do
+  create_visitor
+  delete_user
+  visit '/users/sign_up'
+  fill_in "Username", :with => @visitor[:username]
+  fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  click_button('Sign up')
+end
+
+When /^I register without entering a password confirmation$/ do
+  create_visitor
+  delete_user
+  visit '/users/sign_up'
+  fill_in "Username", :with => @visitor[:username]
+  fill_in "user_password", :with => @visitor[:password]
+  click_button('Sign up')
+end
+
+When /^I register without entering an email$/ do
+  create_visitor
+  delete_user
+  visit '/users/sign_up'
+  fill_in "Username", :with => @visitor[:username]
+  fill_in "user_password", :with => @visitor[:password]
+  fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
+  click_button('Sign up')
+end
+
+When /^I register with different password password_confirmation values$/ do
+  create_visitor
+  delete_user
+  visit '/users/sign_up'
+  fill_in "Username", :with => @visitor[:username]
+  fill_in "user_password", :with => @visitor[:password]
+  fill_in "user_password_confirmation", :with => 'wrong entry'
+  click_button('Sign up')
+end
+
 Then /^I should see instructions to confirm account$/ do
   current_path.should == root_path
   page.should have_content('A message with a confirmation link has been sent to your email address. Please open the link to activate your account.')
@@ -86,4 +133,14 @@ Then /^I should see 'Signed in successfully.'$/ do
   page.should have_text('Signed in successfully.')
 end
 
+Then /^I should see a registration error$/ do
+  page.should have_content('')
+end
 
+Then /^I should be redirected to my page index$/ do
+  current_path.should == pages_path
+end
+
+Then /^I should be redirected to the home page$/ do
+  current_path.should == root_path
+end

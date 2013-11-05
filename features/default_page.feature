@@ -8,3 +8,12 @@ I want to be directed to the default home page
   When I visit the website
   Then I should see the sign up link
     And I should see the sign in link
+    And I should see the about link
+    And I should see the home link
+
+  Scenario: Visiting home page signed in
+  Given I am logged in
+  When I visit the website
+  Then I should not see the sign up link
+    And I should not see the sign in link
+    And I should see the account link
