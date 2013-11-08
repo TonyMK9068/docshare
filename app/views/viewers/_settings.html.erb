@@ -1,21 +1,20 @@
+<div class="viewers-privacy three columns">
+Page is: <strong><%= page.public ? 'Public' : 'Private' %></strong>
+<br/>
+<small>Change privacy below:</small>
 
-<h3>Privacy Settings for</h3> <%= page.title %>
-
-<div class="viewers-privacy six columns">
-Page is: <%= page.public ? 'Public' : 'Private' %>
-
-Change privacy?
 <%= form_for page, :method => :put do |f| %>
-<div>
-
-    <%= f.radio_button :public, false, checked: page.public %> <span>Yes, I want privacy </span> </br>
-    <%= f.radio_button :public, true, checked: page.public %> <span> No, allow all to see!</span> <br/>
-
-</div>
-  <%= f.submit %>
+<%= f.radio_button :public, false, checked: page.public  == false %> <span> : Private</span> </br>
+<%= f.radio_button :public, true, checked: page.public %> <span> : Public </span> <br/>
+<%= f.submit 'Update' %>
 <% end %>
+<hr>
+</div>
+<div class="eight columns">
 <% unless page.public %>
-<p>Users granted permission:</p>
+<div class="viewer-form">
+<%= render partial: 'viewers/viewers_form', locals: { page: page } %>
+</div>
 <table>
 <thead>
 <tr>
@@ -35,18 +34,9 @@ Change privacy?
   <td><%= viewer.created_at.localtime.strftime("%b %d, %Y") %></td>
   <td><%= link_to "x", [page, viewer], :method => :delete  %></td>
 </tr>
-<% end %>
 </tbody>
 </table>
-
-</div>
-
-
-
-<div class="viewer-form">
-<%= button_tag 'Set Exceptions', :class => "exceptions" %>
-<div class="js-add-viewer hidden">
-<%= render partial: 'viewers/viewers_form', locals: { page: page } %>
+<% end %>
 </div>
 </div>
 <% end %>

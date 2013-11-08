@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DocShare</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= csrf_meta_tags %>
-  </head>
+
+<head>
+
+  <title>DocShare</title>
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= yield :head %>
+
+  <%= csrf_meta_tags %>
+
+</head>
+
+
+
 
 <body>
+<!-- Flash Messages -->
+
 <div class="row flash">  
   <% if flash[:notice] %>
   <div class="alert alert-info">
@@ -25,11 +36,13 @@
   </div>
   <% end %>
 </div>
+
+<!-- Nav Bar -->
+
 <div class="container">
   <% if current_user %>
-  <div class="twelve columns offset-by-four row">
-
-  <ul> 
+  <div class="sixteen columns nav-bar">
+  <ul class="nav-inner ten columns offset-by-three"> 
     <li class="nav-tab two columns"><%= link_to "home", pages_path, class: "home nav-link" %></li>
     <li class="nav-tab two columns"><%= link_to "about", about_path, class: "about nav-link" %></li>
     <li class="nav-tab two columns"><%= link_to "new page", new_page_path, class: "nav-link" %></li>
@@ -41,30 +54,28 @@
         </li>
         </ul>
       </div>
-
     </li>
   </ul>
   </div>
   <% else %>
-  <div class="twelve columns offset-by-four row">
-  <ul>
-      <li class="two columns"><%= link_to "home", root_path, class: "home nav-link" %></li>
-      <li class="two columns"><%= link_to "about", about_path, class: "about nav-link" %></li>
-      <li class="two columns"><%= link_to "sign up", new_user_registration_path, class: "sign-up nav-link" %></li>
-      <li class="two columns"><%= link_to "sign in", new_user_session_path, class: "sign-in nav-link" %></li>
+  <div class="sixteen columns nav-bar">
+  <ul class="nav-inner ten columns offset-by-three"> 
+      <li class="nav-tab two columns"><%= link_to "home", root_path, class: "home nav-link" %></li>
+      <li class="nav-tab two columns"><%= link_to "about", about_path, class: "about nav-link" %></li>
+      <li class="nav-tab two columns"><%= link_to "sign up", new_user_registration_path, class: "sign-up nav-link" %></li>
+      <li class="nav-tab two columns"><%= link_to "sign in", new_user_session_path, class: "sign-in nav-link" %></li>
   </ul>
   </div>
   <% end %>
 </div>
 
+<!-- End of layout -->
+
 <div class="container insert">
   <%= yield %>
-  </div>
+</div>
 
 
 <%= javascript_include_tag "application" %>
-
-
 </body>
-
 </html>

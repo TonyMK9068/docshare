@@ -1,33 +1,24 @@
-
-<div class="eleven columns offset-by-four ">
-<div class="row">
-<h2 class="banner">Welcome to your page!</h2>
-</div>
-</div>
-
-<div class="five columns fixed-form">
-<%= form_for @page do |f| %>
-  <%= f.label :title, 'Enter title here...'  %>
-  <%= f.text_field :title %>
-  <%= f.label :body, 'Enter your data here...' %>
-  <%= f.text_area :body, :size => "10x12" %>
-  <% if current_user.subscriber %>
-    <div>
-    <%= f.radio_button :public, false, checked: @page.public %> <span>Yes, I want privacy </span> </br>
-    <%= f.radio_button :public, true, checked: @page.public %> <span> No, allow all to see!</span><br/>
-    <small>Note: Privacy settings can my edited at any time.</small>
-    </div>
-    <% else %>
-    <small>Upgrade account to make this page private</small><br />
-    <% end %>
-  <%= f.submit 'Save', class: 'button' %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'pages' %>
 <% end %>
+
+<div class="ten columns offset-by-three ">
+<div class="row">
+<h2>Welcome to your page!</h2>
+</div>
 </div>
 
-<div class="eleven columns">
-  <h4>As will actually appear on your page:</h4>
+
+<div class="eight columns fixed-form">
+<%= form_for @page do |f| %>
+  <%= f.text_field :title %>   
+  <%= f.text_area :body %>
+  <%= f.submit 'Save', class: 'new-page-button', value: 'Save Page' %>
+</div>
+<% end %>
+
+<div class="eight columns output-display">
+  <h4>Title:</h4>
   <hr>
-  <div class="overflow">
-  <pre class="marked-text"> </pre>
-  </div>
+  <div class="overflow marked-text"></div>
 </div>

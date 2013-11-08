@@ -1,16 +1,19 @@
-
 <div class="sixteen columns edit-page">
 <h2><%= @page.title %></h2> 
 </div>
 
-<div class="fourteen columns off-set-by-one">
-<div class="row">
-<p> <%= markdown(@page.body)  %> </p>
-</div>
-</div>
-
 <div class="three columns">
 <%= link_to 'Edit Page', edit_page_path, class: 'button' %>
-<div><%= link_to 'Delete Page', @page, method: :delete, class: 'button' %>
+<%= link_to 'Delete Page', @page, method: :delete, class: 'button' %>
 </div>
+
+
+<div class="ten columns off-set-by-one">
+<div class"output-display">
+<%= markdown(@page.body)  %>
+
+</div>
+
+</div>
+
 

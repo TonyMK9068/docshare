@@ -14,14 +14,13 @@
 ActiveRecord::Schema.define(:version => 20131105011017) do
 
   create_table "collaborators", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "page_id"
+    t.integer  "user_id",    :null => false
+    t.integer  "page_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "collaborators", ["page_id"], :name => "index_collaborators_on_page_id"
-  add_index "collaborators", ["user_id"], :name => "index_collaborators_on_user_id"
+  add_index "collaborators", ["user_id", "page_id"], :name => "index_collaborators_on_user_id_and_page_id"
 
   create_table "pages", :force => true do |t|
     t.string   "title"
@@ -59,13 +58,12 @@ ActiveRecord::Schema.define(:version => 20131105011017) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "viewers", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "page_id"
+    t.integer  "user_id",    :null => false
+    t.integer  "page_id",    :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "viewers", ["page_id"], :name => "index_viewers_on_page_id"
-  add_index "viewers", ["user_id"], :name => "index_viewers_on_user_id"
+  add_index "viewers", ["user_id", "page_id"], :name => "index_viewers_on_user_id_and_page_id"
 
 end

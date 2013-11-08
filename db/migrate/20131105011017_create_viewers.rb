@@ -1,12 +1,11 @@
 class CreateViewers < ActiveRecord::Migration
   def change
     create_table :viewers do |t|
-      t.references :user
-      t.references :page
-
+      t.belongs_to :user, :null => false
+      t.belongs_to :page, :null => false
       t.timestamps
+    
     end
-    add_index :viewers, :user_id
-    add_index :viewers, :page_id
+      add_index(:viewers, [:user_id, :page_id])
   end
 end

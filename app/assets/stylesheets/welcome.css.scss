@@ -2,29 +2,48 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-button {
-  background:#CC0000;
+.banner {
+  height:88px;
+  text-align: center;
 }
 
-button.special {
-border: 1px solid #CC0000;
-border-top: 1px solid #CC0000;
-border-left: 1px solid #CC0000;
--moz-border-radius: 3px;
--webkit-border-radius: 3px;
-border-radius: 3px;
-color: white;
-display: inline-block;
-font-size: 11px;
-font-weight: bold;
-text-decoration: none;
-text-shadow: 0 1px rgba(255, 255, 255, 0.75);
-cursor: pointer;
-margin-bottom: 20px;
-line-height: normal;
-padding: 8px 10px;
-font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+.text {
+  font-size:16px;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.root-info {
+  margin-top:70px;
+}
+
+.root-info{
+  text-align:center;
+}
+
+/* Demo Markup Rendering */
+
+.demo-text {
+  font-size:20px;
+  display:inline;
+}
+
+#demo-input {
+  display:inline;
+  float:left;
+  margin-right:20px;
 }
 
 
 
+div.demo-row {
+  position:relative;
+  width:75%;
+  left:25%;
+}
+
+
+.page-link{
+  font-size:18px;
+  margin:20px;
+}

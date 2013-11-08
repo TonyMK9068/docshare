@@ -87,19 +87,15 @@ $(document).ready(function(){
     $('div.alert').slideUp('slow');
     $('div')
   });
+});
 
-$(document).on('click', 'button.collab', function(){
-  $('.js-add-collaborator').slideToggle('fast');
-  });
-
-$(document).on('click', 'button.viewer', function(){
-  $('.js-privacy-settings').slideToggle('fast');
-  });
-
-$(document).on('click', 'button.exceptions', function(){
-  $('.js-add-viewer').slideToggle('fast');
+$(document).ready(function() {
+  $('.page-settings').click(function() {
+    $('.js-collab-popup').slideToggle('fast');
   });
 });
+
+
 
 $(document).ready(function(){
   $('.account').click(function() {

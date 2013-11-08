@@ -1,50 +1,41 @@
-<div class="fifteen columns offset-by-one">
-<row>
-<h2 class="edit-page">Edit content or settings for: <%= @page.title %></h2>
-</row>
-
-</div>
-
-
-<div class="five columns fixed-form">
-<%= form_for @page, :method => :put do |f| %>
-  <%=f.label :title  %>
-  <%= f.text_field :title, :value => @page.title %>
-  <%= f.label :body %>
-  <%= f.text_area :body, :value => @page.body %>
-  <%= f.submit 'Save', class: 'button' %>
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'pages' %>
 <% end %>
 
-  <% if current_user.subscriber %>
-  <div class="btn-align">
-  <%= button_tag 'Add User', :class => "collab" %>
-  <%= button_tag 'Privacy Settings', :class => "viewer" %>
-  </div>
-  <% end %>
+
+<div class="ten columns offset-by-three ">
+<row>
+<h2>Edit content or settings for: <%= @page.title %></h2>
+</row>
 </div>
 
-<div class="eleven columns edit-content">
+<div class="eight columns fixed-form">
+<%= form_for @page, :method => :put do |f| %>
+  <%= f.text_field :title, :value => @page.title %>
+  <%= f.text_area :body, :value => @page.body %>
+  <%= f.submit 'Save', class: 'new-page-button', value: 'Save Changes' %>
+</div>
+<% end %>
+
+<div class="eight columns output-display">
   <h4>As will actually appear on your page:</h4>
   <hr>
-  <div class="overflow">
-  <pre class="marked-text"> </pre>
-  </div>
+  <div class="overflow marked-text"></div>
 </div>
 
 
 <% if current_user.subscriber %>
+<%= button_tag 'Page Settings', class: 'page-settings' %>
+  <% end %>
 
-<div class="row seven columns collab-popup">
+<div class="js-collab-popup hidden">
+
   <div class="collab-form">
-      <div class="js-add-collaborator hidden">
       <%= render partial: 'collaborators/collaborator', locals: { page: @page } %>
-      </div>
   </div>
-
-<div class="settings">
-  <div class="js-privacy-settings hidden">
+  <div class="privacy-settings">
     <%= render partial: 'viewers/settings', locals: { page: @page } %>
   </div>
+
 </div>
-<% end %>
-</div>
+

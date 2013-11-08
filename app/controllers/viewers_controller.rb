@@ -19,7 +19,6 @@ class ViewersController < ApplicationController
     @user_attribute = input[:user]
   end
 
-
   def create
     @page = Page.find(params[:page_id])
     form_input
@@ -40,12 +39,10 @@ class ViewersController < ApplicationController
     end
   end
 
-
-
-
   def destroy
     @page = Page.find(params[:page_id])
     authorize! :destroy, Viewer, message: "You are not authorized to edit permissions"
   end
+
 end
 

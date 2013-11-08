@@ -1,28 +1,88 @@
-
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'pages' %>
+<% end %>
+<div class="sixteen columns">
 <h1> Hello <%= current_user.username %> </h1>
-<div class="four columns">
+</div>
 
+<div class="ten columns">
 <p> You have <%= @pages.count %> pages! </p>
 <p>Select one from below to view or edit!</p>
 
-  <% @pages.each do |page| %>
+<!-- User created table -->
+<table class="user-created-tables">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>URL</th>
+      <th>Date Created</th>
+      <th>Last Update</th>
+      <th>Private?</th>
+      <th>Delete?</th>
+    </tr>
+  </thead>
+ 
+  <tbody>
+
+    <% @pages.each do |page| %>
+    <tr>
+      <td><%= page.title %></td>
+      <td> <%= link_to 'View page', page %> </td>
+      <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
+      <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
+      <td><%= page.public %></td>
+      <td><%= link_to page, method: :delete, class: 'delete-button' %></td>
+    </tr>
+    <% end %>
+
+  </tbody>
+</table>
+<br/>
+<!-- Is a collaborator of..... -->
+<p><strong>Pages you've been added as a collaborator:</strong></p>
+<% if current_user.collaborators %>
+<small> Sorry, no users have added you </small>
+<% end %>
+
+<table class="collab-table">
+<thead>
+<% current_user.collaborators do |page| %>
+<% listing = page.page_id %>
+  <tr>
+    <th>Title</th>
+    <th>Link</th>
+    <th>Last Updated</th>
+    <th>Private?</th>
+  </tr>
+</thead>
+  
+
+<tbody>
+  <tr>
+    <td><%= listing.pages.title %></td>
+    <td><%= link_to 'View page', listing %></td>
+    <td>listing.pages.updated_at.localtime.strftime("%b %d, %Y")</td>
+    <td>listing.page.public</td>
+  </tr>
+</tbody>
     <div class="page-link">
     <%= link_to(  page.title , page, class: "page-index") %>
     </div>
     <% end %>
+
+</table>
 </div>
 
-<div class="six columns offset-by-two">
+<div class="six columns">
 <% if current_user.subscriber %>
+
 <h5 class="charge-success">Thank you for subscribing!</h5>
 <% else %>
-<div>
-<h3>Upgrade Account?</h3>
 
+<h3>Upgrade Account?</h3>
 <%= form_tag charges_path do %>
   <article>
     <label class="amount">
-
       <span>As a subscriber you're allowed access to privacy controls for your pages and given the ability to  define contributors to each page </span>
       <p>Subscription is : $4.99 billed due monthly</p>
     </label>
@@ -33,7 +93,8 @@
           data-description="A month's subscription"
           data-currency="usd"
           data-amount="499"></script>
+
   <% end %>
 </div>
+
 <% end %>
-</div>

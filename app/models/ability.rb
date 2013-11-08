@@ -21,11 +21,11 @@ class Ability
             can :create, Stripe::Charge, :email => user.email
             #collaborators may only update read a page when the page_ids match
             user.collaborators.each do |access|
-                can [:update, :read], Page, :id => access.page_id
+                can [:update, :read], Page, :page_id => access.page_id
             end
 
             user.viewers.each do |access|
-                can :read, Page, :id => access.page_id
+                can :read, Page, :page_id => access.page_id
             end
         end
 

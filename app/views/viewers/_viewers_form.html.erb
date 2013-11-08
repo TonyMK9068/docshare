@@ -1,12 +1,8 @@
 <div>
-<%= form_for [ page, Viewer.new ], :method => :post do |f|  %>
-
-<p>Privacy Settings for "<%= @page.title %>"</p>
-Enable registered users to view this page:
-Please enter their username or email in the text box
+<%= form_for [page, Viewer.new], :method => :post do |f|  %>
+<p>Authorize a user to view this page:</p>
+Enter username or email:
 <%= f.text_field :user %>
-
 <%= f.submit %>
 <% end %>
-
 </div>

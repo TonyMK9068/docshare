@@ -2,126 +2,41 @@
 @import 'layout';
 @import 'skeleton';
 
+/* ----------------General Settings --------------------- */
+
 body {
-  color:white;
-   background-color:#6A6A69;
+   background-color:rgb(255, 255, 255);
 }
 
-body h1, h2, h3, h4, h5, h6, p, a {
-  color:white;
-
+h1, h2, h3, h4, h5, h6 {
+  text-align:center;
 }
-
-  a:visited {
-  text-decoration:none;
-  color:white;
-  }
 
 a {
   text-decoration:none;
 }
-.circle {
-    height: 50px;
-    width: 50px;
-    border-radius: 100%;
-    background-color: #FF9C5B;
-    display: inline-block;
-}
 
-
-button.special {
-border: 1px solid #CC0000;
-border-top: 1px solid #CC0000;
-border-left: 1px solid #CC0000;
--moz-border-radius: 3px;
--webkit-border-radius: 3px;
-border-radius: 3px;
-display: inline-block;
-font-weight: bold;
-text-decoration: none;
-cursor: pointer;
-margin-bottom: 20px;
-line-height: normal;
-padding: 8px 10px;
-font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-background-color:#CC0000;
-
-  strong {
-  color:white;
-  font-size: 14px;
-  text-shadow: 0;
-  }
-}
-
-.root-info{
-  text-align:center;
-}
-div.demo-row {
-  position:relative;
-  width:75%;
-  left:25%;
-}
-
-.nav-tab {
-  border-bottom:3px solid rgba(255, 0, 0, 0);
-  }
-
-.demo-text {
-  font-size:20px;
-  display:inline;
-}
-
-#demo-input {
-  display:inline;
-  float:left;
-  margin-right:20px;
-}
-
-ul {
-  margin:0;
-  padding:0;
-  height:40px;
-}
-.nav {
-  height:40px;
-  margin-top:25px;
-}
-
-
-.account {
-  display:inline-block;
-  }
-
-#type-writer {
-    color: white;
-}
-a.nav-link {
-  display:block;
-  font-size:15px;
-  text-align:center;
+a:visited {
   text-decoration:none;
-  font-weight:bold;
-  margin-bottom:5px;
-  height:25px;
-  text-transform: uppercase;
-  color:white;
-  padding-top:5px;
-  padding-bottom:5px;
+  }
 
-
+.hidden {
+  display:none;
 }
 
-.banner {
-  height:88px;
-  text-align: center;
+.insert {
+  position:absolute;
+  top:12%;
+  margin-left:15%;
+  margin-right:15%
 }
 
-.text {
-  font-size:16px;
-  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-align: center;
-  color: white;
+.overflow {
+  overflow:auto;
 }
+
+
+/* -------------Alert Settings--------------- */
 
 .alert {
   color:white;
@@ -131,6 +46,7 @@ a.nav-link {
   font-family:Verdana;
   text-align:left;
   border:2px solid #B2B200;
+  box-shadow: 10px 10px 10px #888888;
 }
 
 .alert.alert-error {
@@ -143,93 +59,50 @@ a.nav-link {
   border:2px solid #003D99;
 }
 
-.root-info {
-  margin-top:70px;
+
+
+/* ----------------Nav Bar----------------- */
+
+.nav-bar {
+  margin:0;
+  padding:0;
+  height:40px;
+  background-color:rgba(0, 102, 255, .7)
 }
 
+.nav-inner {
 
-.hidden {
-  display:none;
 }
 
-.page-index {
-  border-left:1px solid #CC0000;
-  border-bottom:1px solid #CC0000;
+.account {
+  display:inline-block;
+  }
+
+.nav-tab{
+  width:25%;
+  border-bottom:3px solid rgba(255, 0, 0, 0);
+}
+a.nav-link {
+  display:block;
+  font-size:15px;
+  text-align:center;
+  text-decoration:none;
+  font-weight:bold;
+  margin-bottom:5px;
+  height:25px;
+  text-transform: uppercase;
+  padding-top:10px;
+  padding-bottom:5px;
+  color:white;
 }
 
-.page-link{
-  font-size:18px;
-  margin:20px;
+.droppdown {
+  text-align:center;
+  width:30px;
 }
 
 #account-options {
 position:relative;
 left:-40px;
 z-index:5;
-}
-
-.test {
-  border:2px solid black;
-}
-
-.droppdown {
-  text-align:center;
-  width:30px;
-
-}
-
-.container {
-  position:relative;
-}
-
-.fixed-form{
-
-}
-
-.overflow {
-  overflow:auto;
-}
-
-
-.add-collabs {
-  position:relative;
-  left:-50%;
-  down:100%;
-}
-
-.collab-form {
-  down:50%  
-}
-
-table, th, td {
-  border: 1px solid black;
-}
-
-table {
-  border-collapse:collapse;
-  width:100%
-}
-
-td {
-  text-align:left;
-  vertical-align:center;
-  padding:15px;
-}
-
-th {
-  background-color: black;
-  color:white;
-  font-style:strong;
-}
-
-.edit-page {
-  text-align:center;
-}
-
-.collab-popup{
-  z-index:100;
-  position:absolute;
-  right:50%;
-  background-color:rgba(19, 9, 6, 1);
-  color:white;
 }
