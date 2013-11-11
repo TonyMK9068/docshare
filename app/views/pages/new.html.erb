@@ -11,14 +11,13 @@
 
 <div class="eight columns fixed-form">
 <%= form_for @page do |f| %>
-  <%= f.text_field :title %>   
-  <%= f.text_area :body %>
+  <%= f.text_field :title, :placeholder => "Title goes here..." %>   
+  <%= f.text_area :body, :placeholder => "Page body goes here..." %>
   <%= f.submit 'Save', class: 'new-page-button', value: 'Save Page' %>
 </div>
 <% end %>
 
 <div class="eight columns output-display">
-  <h4>Title:</h4>
-  <hr>
+  <div class="overflow marked-title"></div>
   <div class="overflow marked-text"></div>
 </div>

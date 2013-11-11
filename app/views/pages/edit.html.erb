@@ -18,8 +18,7 @@
 <% end %>
 
 <div class="eight columns output-display">
-  <h4>As will actually appear on your page:</h4>
-  <hr>
+  <div class="overflow marked-title"></div>
   <div class="overflow marked-text"></div>
 </div>
 
@@ -28,7 +27,7 @@
 <%= button_tag 'Page Settings', class: 'page-settings' %>
   <% end %>
 
-<div class="js-collab-popup hidden">
+<div class="js-collab-popup hidden ">
 
   <div class="collab-form">
       <%= render partial: 'collaborators/collaborator', locals: { page: @page } %>

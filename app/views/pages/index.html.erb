@@ -31,7 +31,7 @@
       <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
       <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
       <td><%= page.public %></td>
-      <td><%= link_to page, method: :delete, class: 'delete-button' %></td>
+      <td><%= link_to 'x', page, method: :delete, class: 'delete-button' %></td>
     </tr>
     <% end %>
 

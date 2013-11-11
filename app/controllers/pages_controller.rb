@@ -47,7 +47,7 @@ end
   def destroy
     @page = Page.find(params[:id])
     authorize! :destroy, @page, message: 'Must be page creator to do that'
-    if @page.destroy
+    if @page.delete
       flash[:notice] = "Page successfully deleted."
       redirect_to pages_path
     else

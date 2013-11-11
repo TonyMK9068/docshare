@@ -15,28 +15,29 @@ Page is: <strong><%= page.public ? 'Public' : 'Private' %></strong>
 <div class="viewer-form">
 <%= render partial: 'viewers/viewers_form', locals: { page: page } %>
 </div>
-<table>
-<thead>
-<tr>
-  <th>Username</th>
-  <th>Email</th>
-  <th>Date Added</th>
-  <th>Remove?</th>
-</tr>
-</thead>
-<tbody>
-<% page.viewers.each do |viewer| %>
-<% user = User.find_by_id(viewer.user_id) %>
 
-<tr>
-  <td><%= user.username %></td>
-  <td><%= user.email %></td>
-  <td><%= viewer.created_at.localtime.strftime("%b %d, %Y") %></td>
-  <td><%= link_to "x", [page, viewer], :method => :delete  %></td>
-</tr>
-</tbody>
-</table>
-<% end %>
-</div>
+    <table>
+      <thead>
+            <tr>Viewers:</tr>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Date Added</th>
+          <th>Remove?</th>
+        </tr>
+      </thead>
+      <% page.viewers.each do |viewer| %>
+      <% user = User.find_by_id(viewer.user_id) %>
+        <tbody>
+          <tr>
+              <td><%= user.username %></td>
+              <td><%= user.email %></td>
+              <td><%= viewer.created_at.localtime.strftime("%b %d, %Y") %></td>
+              <td><%= link_to "x", [page, viewer], :method => :delete  %></td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
 </div>
 <% end %>

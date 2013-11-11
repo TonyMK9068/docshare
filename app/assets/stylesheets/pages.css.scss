@@ -6,7 +6,7 @@
   z-index:100;
   position:absolute;
   right:55%;
-  up:20%;
+  top:-7%;
   background-color:rgba(0, 102, 255, .9);
   color:white;
   border-radius:10px;
@@ -74,10 +74,16 @@ div.columns.fixed-form, {
   box-shadow: 10px 10px 10px #888888;
   height:700px;
   padding: 5px;
+  background-color:white;
+  overflow:scroll;
  }
 
  input.new-page-button {
   position:absolute;
   top:1%;
   right:93%;
+ }
+
+ pre {
+ background-color: rgb(230, 230, 230);
  }

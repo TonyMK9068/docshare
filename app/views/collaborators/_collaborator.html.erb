@@ -11,3 +11,28 @@ User name or Email <%= f.text_field :user %>
 <% end %>
 
 </div>
+
+  <div>
+    <table>
+      <thead>
+      <tr>Collaborators:</tr>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Date Added</th>
+          <th>Remove?</th>
+        </tr>
+      </thead>
+      <% page.collaborators.each do |collab| %>
+      <% user = User.find_by_id(collab.user_id) %>
+        <tbody>
+          <tr>
+              <td><%= user.username %></td>
+              <td><%= user.email %></td>
+              <td><%= collab.created_at.localtime.strftime("%b %d, %Y") %></td>
+              <td><%= link_to "x", [page, collab], :method => :delete  %></td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>

@@ -24,24 +24,32 @@ class ViewersController < ApplicationController
     form_input
     find_user(@user_attribute)
     if @user
-    authorize! :create, Viewer, message: "You are not authorized to add viewers to this page"
+    authorize! :create, Viewer, message: "You are not authorized to add viewers to this page."
     @viewer = @user.viewers.build(page: @page)
       if @viewer.save 
-        flash[:notice] = "Permission granted successfully"
-        redirect_to @page
+        flash[:notice] = "Permission granted successfully."
+        redirect_to edit_page_path(@page)
       else
-        flash[:error] = "Error adding user"
-        render pages_path
+        flash[:error] = "Error adding user."
+        render edit_page_path(@page)
       end
     else
-      flash[:error] = "User does not exist"
+      flash[:error] = "User does not exist."
       redirect_to request.referrer
     end
   end
 
   def destroy
     @page = Page.find(params[:page_id])
-    authorize! :destroy, Viewer, message: "You are not authorized to edit permissions"
+    @viewer = Viewer.find(params[:id])
+    authorize! :destroy, Viewer, message: "You are not authorized to edit permissions."
+    if @viewer.delete
+      flash[:notice] = "Viewer access successfully revoked."
+      redirect_to edit_page_path(@page)
+    else
+      flash[:error] = "Error revoking access. Please try again."
+      render edit_page_path(@page)
+    end
   end
 
 end

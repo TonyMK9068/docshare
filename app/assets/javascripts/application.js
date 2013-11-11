@@ -18,13 +18,20 @@
 // Set default options except highlight which has no default
 
 
+// Rendering input for new/edit views
 $(document).ready(function() {
   $( "textarea" ).keyup(function() {
     var value = $( this ).val();
     $( ".marked-text" ).html( marked(value) );
   })
   .keyup();
+  $("#page_title").keyup(function(){
+    var value = $( this ).val();
+    $( ".marked-title" ).html( marked(value) );
+   })
+  .keyup();
 });
+
 
 (function($) {
     $.fn.textSimple = function(content) {
