@@ -18,44 +18,16 @@
 // Set default options except highlight which has no default
 
 
-// Rendering input for new/edit views
-$(document).ready(function() {
-  $( "textarea" ).keyup(function() {
-    var value = $( this ).val();
-    $( ".marked-text" ).html( marked(value) );
-  })
-  .keyup();
-  $("#page_title").keyup(function(){
-    var value = $( this ).val();
-    $( ".marked-title" ).html( marked(value) );
-   })
-  .keyup();
-});
-
-
-(function($) {
-    $.fn.textSimple = function(content) {
-        var content_array = content.split(""),
-            index = 0,
-            element = this;
-        setInterval(function() {
-            if(index < content_array.length) {
-                element.text(element.text() + content_array[index++]);
-            }
-        }, 200);
-    };
-    
-})(jQuery); 
-//  $("#type-writer").textSimple("Welcome to Docshare");
-
 $(document).ready(function(){
   $('.nav-tab').hover(
     function() {
-      $(this).css('border-bottom', '3px solid #CC0000');
+      $(this).css('border-bottom', '3px solid rgba(0, 102, 255, 0.701961)');
+      //$(this).css('')
     }, function(){
       $(this).css('border-bottom', '');
     }
   );
+
   $('button.special').click(function(){
     $('.root-info').after("<div class='demo-row'><textarea id='demo-input' rows='6' cols='30' style='display:none;'>####Try some Markdown here....!</textarea></div>");
     $('#demo-input').fadeIn('slow');
@@ -96,14 +68,29 @@ $(document).ready(function(){
   });
 });
 
+
+// Toggle page settings for edit view
 $(document).ready(function() {
   $('.page-settings').click(function() {
     $('.js-collab-popup').slideToggle('fast');
   });
 });
 
+// Rendering input for new/edit views
+$(document).ready(function() {
+  $( "textarea" ).keyup(function() {
+    var value = $( this ).val();
+    $( ".marked-text" ).html( marked(value) );
+  })
+  .keyup();
+  $("#page_title").keyup(function(){
+    var value = $( this ).val();
+    $( ".marked-title" ).html( marked(value) );
+   })
+  .keyup();
+});
 
-
+//Account nav bar drop down
 $(document).ready(function(){
   $('.account').click(function() {
       $('#account-options').slideToggle('1200');
@@ -112,3 +99,19 @@ $(document).ready(function(){
     });
 });
 
+
+
+// (function($) {
+//    $.fn.textSimple = function(content) {
+//        var content_array = content.split(""),
+//            index = 0,
+//            element = this;
+//        setInterval(function() {
+//            if(index < content_array.length) {
+//                element.text(element.text() + content_array[index++]);
+//            }
+//        }, 200);
+//    };
+    
+//})(jQuery); 
+//  $("#type-writer").textSimple("Welcome to Docshare");
