@@ -4,6 +4,9 @@ class Page < ActiveRecord::Base
   has_many :collaborators
   has_many :viewers
 
+  has_many :collaborators, class_name: "User"
+  has_many :viewers, class_name: "User"
+
   attr_accessible :body, :public, :title, :user, :collaborators, :viewers
   validates_presence_of :body, :title
 
