@@ -1,11 +1,8 @@
 <div>
 <%= form_for [page, Collaborator.new], :method => :post do |f|  %>
-
-Please specificy who you would like to add as a collaborator to this page: 
-Add collaborators by email or username
-
-
-User name or Email <%= f.text_field :user %>
+<small>Please specificy who you would like to add as a collaborator to this page:</small> <br/>
+<small>Add collaborators by :</small><br/>
+Username or Email <%= f.text_field :user %>
 
 <%= f.submit %>
 <% end %>

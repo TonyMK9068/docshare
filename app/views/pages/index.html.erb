@@ -6,7 +6,7 @@
 </div>
 
 <div class="ten columns">
-<p> You have <%= @pages.count %> pages! </p>
+<p> You have <%= pluralize(@pages.count, 'page') %> </p>
 <p>Select one from below to view or edit!</p>
 
 <!-- User created table -->
@@ -17,7 +17,7 @@
       <th>URL</th>
       <th>Date Created</th>
       <th>Last Update</th>
-      <th>Private?</th>
+      <th>Public?</th>
       <th>Delete?</th>
     </tr>
   </thead>
@@ -30,8 +30,8 @@
       <td> <%= link_to 'View page', page %> </td>
       <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
       <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
-      <td><%= page.public %></td>
-      <td><%= link_to 'x', page, method: :delete, class: 'delete-button' %></td>
+      <td><%= page.public.to_s.capitalize %></td>
+      <td><%= link_to 'x', page, method: :delete, class: 'button delete', data: { confirm: "Are you sure?" }  %></td>
     </tr>
     <% end %>
 
@@ -40,37 +40,34 @@
 <br/>
 <!-- Is a collaborator of..... -->
 <p><strong>Pages you've been added as a collaborator:</strong></p>
-<% if current_user.collaborators %>
-<small> Sorry, no users have added you </small>
+<% if current_user.collaborators.length == 0 %>
+  <small> Sorry, no users have added you </small>
+
+<% else %>
+    <table class="collab-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Link</th>
+          <th>Last Updated</th>
+          <th>Public?</th>
+        </tr>
+      </thead> 
+      <tbody>
+  <% current_user.collaborators.each do |instance| %>
+    <% listing = instance.page_id %>
+    <% page = Page.find_by_id(listing) %>
+        <tr>
+          <td><%= page.title %></td>
+          <td><%= link_to 'View page', page %></td>
+          <td> <%= page.updated_at.localtime.strftime("%b %d, %Y") %></td>
+          <td> <%= page.public.to_s.capitalize %> </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
 <% end %>
-
-<table class="collab-table">
-<thead>
-<% current_user.collaborators do |page| %>
-<% listing = page.page_id %>
-  <tr>
-    <th>Title</th>
-    <th>Link</th>
-    <th>Last Updated</th>
-    <th>Private?</th>
-  </tr>
-</thead>
-  
-
-<tbody>
-  <tr>
-    <td><%= listing.pages.title %></td>
-    <td><%= link_to 'View page', listing %></td>
-    <td>listing.pages.updated_at.localtime.strftime("%b %d, %Y")</td>
-    <td>listing.page.public</td>
-  </tr>
-</tbody>
-    <div class="page-link">
-    <%= link_to(  page.title , page, class: "page-index") %>
-    </div>
-    <% end %>
-
-</table>
 </div>
 
 <div class="six columns">

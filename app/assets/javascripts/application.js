@@ -19,12 +19,16 @@
 
 
 $(document).ready(function(){
-  $('.nav-tab').hover(
+  $('.nav-link').hover(
     function() {
       $(this).css('border-bottom', '3px solid rgba(0, 102, 255, 0.701961)');
-      //$(this).css('')
+      $(this).css('background-color', 'white');
+      $(this).css('color', 'rgba(0, 102, 255, 0.701961)');
     }, function(){
       $(this).css('border-bottom', '');
+      $(this).css('background-color','');
+      $(this).css('color', 'white');
+
     }
   );
 
@@ -94,8 +98,8 @@ $(document).ready(function() {
 $(document).ready(function(){
   $('.account').click(function() {
       $('#account-options').slideToggle('1200');
-      $('.two.columns.dropdown a.nav-link').css('color', '#6A6A69');
-      $('.two.columns.dropdown a.nav-link').css('background-color', 'white');
+     // $('.two.columns.dropdown a.nav-link').css('color', '#6A6A69');
+     // $('.two.columns.dropdown a.nav-link').css('background-color', 'white');
     });
 });
 

@@ -1,4 +1,9 @@
-<div class="sixteen columns edit-page">
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'pages' %>
+<% end %>
+
+
+<div class="sixteen columns center">
 <h2><%= @page.title %></h2> 
 </div>
 
@@ -8,11 +13,9 @@
 </div>
 
 
-<div class="ten columns off-set-by-one">
-<div class"output-display">
-<%= markdown(@page.body)  %>
+<div class="ten columns off-set-by-one output-display show-apge">
 
-</div>
+<%= markdown(@page.body)  %>
 
 </div>
 
