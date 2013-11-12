@@ -2,7 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.js-collab-popup{
+/* --------------------- Setting Popup --------------------- */
+
+.js-collab-popup {
   z-index:100;
   position:absolute;
   right:55%;
@@ -15,30 +17,11 @@
   display:none;
 }
 
-table, th, td {
-  border: 1px solid black;
-}
-
-table {
-  border-collapse:collapse;
-  width:100%
-}
-
-td {
-  text-align:left;
-  vertical-align:center;
-  padding:15px;
-}
-
-th {
-  background-color: black;
-  color:white;
-  font-style:strong;
-}
-
 .collab-form {
   down:50%  
 }
+
+/* --------------------- Page Div --------------------- */
 
 input#page_title {
     width: 97%;
@@ -64,10 +47,9 @@ div.columns.fixed-form, {
   box-shadow: 10px 10px 10px #888888;
   height:700px;
   padding:5px;
+}
 
-  }
-
- div.columns.output-display {
+div.columns.output-display {
   margin:0;
   border: 1px solid rgb(192, 192, 192);
   background-color:rgba(230, 230, 230, 1);
@@ -76,14 +58,38 @@ div.columns.fixed-form, {
   padding: 5px;
   background-color:white;
   overflow:scroll;
- }
+}
 
- input.new-page-button {
+input.new-page-button {
   position:absolute;
   top:1%;
   right:93%;
- }
+}
 
- pre {
- background-color: rgb(230, 230, 230);
- }
+pre {
+  background-color: rgb(230, 230, 230);
+}
+
+
+/* --------------------- Table --------------------- */
+
+table, th, td {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse:collapse;
+  width:100%
+}
+
+td {
+  text-align:left;
+  vertical-align:center;
+  padding:15px;
+}
+
+th {
+  background-color: black;
+  color:white;
+  font-style:strong;
+}
