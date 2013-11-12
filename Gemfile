@@ -39,3 +39,4 @@ gem 'marked-rails'
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 gem 'cancan'
 gem 'faker'
+gem "friendly_id", "~> 4.0.10"

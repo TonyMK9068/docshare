@@ -27,7 +27,7 @@
     <% @pages.each do |page| %>
     <tr>
       <td><%= page.title %></td>
-      <td> <%= link_to 'View page', page %> </td>
+      <td> <%= link_to page_path(page), page %> </td>
       <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
       <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
       <td><%= page.public.to_s.capitalize %></td>
@@ -59,7 +59,7 @@
     <% page = Page.find_by_id(listing) %>
         <tr>
           <td><%= page.title %></td>
-          <td><%= link_to 'View page', page %></td>
+          <td><%= link_to page_path(page), page %></td>
           <td> <%= page.updated_at.localtime.strftime("%b %d, %Y") %></td>
           <td> <%= page.public.to_s.capitalize %> </td>
         </tr>

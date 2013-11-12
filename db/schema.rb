@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105011017) do
+ActiveRecord::Schema.define(:version => 20131112052834) do
 
   create_table "collaborators", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -29,8 +29,10 @@ ActiveRecord::Schema.define(:version => 20131105011017) do
     t.boolean  "public",     :default => true
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.string   "slug"
   end
 
+  add_index "pages", ["slug"], :name => "index_pages_on_slug"
   add_index "pages", ["user_id"], :name => "index_pages_on_user_id"
 
   create_table "users", :force => true do |t|
