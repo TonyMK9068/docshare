@@ -23,14 +23,12 @@ class ViewersController < ApplicationController
     @page = Page.find(params[:page_id])
     form_input
     find_user(@user_attribute)
-    if @user
-    authorize! :create, Viewer, message: "You are not authorized to add viewers to this page"
-    @viewer = @user.viewers.build(page: @page)
-      if @viewer.save 
-        flash[:notice] = "Permission granted successfully"
+    authorize! :update, Page, message: "Not authorized to add viewers to this page"
+      if @page.viewer_id << @user.id 
+        flash[:notice] = "User added successfully"
         redirect_to @page
       else
-        flash[:error] = "Error adding user"
+        flash[:error] = "Error adding user."
         render pages_path
       end
     else

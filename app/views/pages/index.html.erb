@@ -40,13 +40,13 @@
 <br/>
 <!-- Is a collaborator of..... -->
 <p><strong>Pages you've been added as a collaborator:</strong></p>
-<% if current_user.collaborators %>
+<% if current_user.can_collaborate == false %>
 <small> Sorry, no users have added you </small>
-<% end %>
+<% else %>
 
 <table class="collab-table">
 <thead>
-<% current_user.collaborators do |page| %>
+<% current_user.can_collaborate do |page| %>
 <% listing = page.page_id %>
   <tr>
     <th>Title</th>
@@ -66,12 +66,13 @@
   </tr>
 </tbody>
     <div class="page-link">
-    <%= link_to(  page.title , page, class: "page-index") %>
+    <%= link_to(page.title , page, class: "page-index") %>
     </div>
     <% end %>
 
 </table>
 </div>
+<% end %>
 
 <div class="six columns">
 <% if current_user.subscriber %>

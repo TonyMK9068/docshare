@@ -24,10 +24,8 @@ class CollaboratorsController < ApplicationController
     @page = Page.find(params[:page_id])
     form_input
     find_user(@user_attribute)
-    if @user
-    authorize! :create, Collaborator, message: "Not authorized to add collaborators to this page"
-    @collaborator = @user.collaborators.build(page: @page)
-      if @collaborator.save 
+    authorize! :update, Page, message: "Not authorized to add collaborators to this page"
+      if @page.collaborator_id << @user.id
         flash[:notice] = "User added successfully"
         redirect_to @page
       else

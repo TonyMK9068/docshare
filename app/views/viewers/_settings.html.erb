@@ -3,7 +3,7 @@ Page is: <strong><%= page.public ? 'Public' : 'Private' %></strong>
 <br/>
 <small>Change privacy below:</small>
 
-<%= form_for page, :method => :put do |f| %>
+<%= form_for page_create_collab_path(page) do |f| %>
 <%= f.radio_button :public, false, checked: page.public  == false %> <span> : Private</span> </br>
 <%= f.radio_button :public, true, checked: page.public %> <span> : Public </span> <br/>
 <%= f.submit 'Update' %>
@@ -25,14 +25,14 @@ Page is: <strong><%= page.public ? 'Public' : 'Private' %></strong>
 </tr>
 </thead>
 <tbody>
-<% page.viewers.each do |viewer| %>
+<% page.viewer.each do |viewer| %>
 <% user = User.find_by_id(viewer.user_id) %>
 
 <tr>
   <td><%= user.username %></td>
   <td><%= user.email %></td>
   <td><%= viewer.created_at.localtime.strftime("%b %d, %Y") %></td>
-  <td><%= link_to "x", [page, viewer], :method => :delete  %></td>
+  <td><%= link_to "x", page_delete_viewer_path, :method => :delete  %></td>
 </tr>
 </tbody>
 </table>

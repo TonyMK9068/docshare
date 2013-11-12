@@ -1,5 +1,5 @@
 <div>
-<%= form_for [page, Viewer.new], :method => :post do |f|  %>
+<%= form_for page_create_viewer_path(page) do |f|  %>
 <p>Authorize a user to view this page:</p>
 Enter username or email:
 <%= f.text_field :user %>

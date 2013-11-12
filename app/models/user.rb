@@ -5,12 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :pages
-  has_many :collaborators
-  has_many :viewers
-
+  has_many :can_collaborate,  class_name: "Page", foreign_key: "collaborator_id"
+  has_many :can_view, class_name: "Page", foreign_key: "viewer_id"
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, 
+  attr_accessible :email, :password, :password_confirmation, :can_collaborate, :can_view,
                   :remember_me, :username, :subscriber, :collaborator, :viewer
   # attr_accessible :title, :body
 validates_presence_of :username
@@ -19,13 +18,5 @@ validates_uniqueness_of :username
  def update_user_subscribed
   self.update_attribute(:subscriber, true)
  end
-
-def can_collaborate_on?(page_id)
-  collaborator_ids.include? page_id
-end
-
-def can_view?(page_id)
-  viewer_ids.include? page_id
-end
 
 end
