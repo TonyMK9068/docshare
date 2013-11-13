@@ -1,22 +1,31 @@
 class Page < ActiveRecord::Base
 
-  belongs_to :user
+  has_many :roles, dependent: :destroy
+  has_many :users, through: :roles
 
-  has_many :collaborators, class_name: "User"
-  has_many :viewers, class_name: "User"
-
-  serialize :collaborators, Array
-  serialize :viewers, Array
-
-  attr_accessible :body, :public, :title, :user, :collaborators, :viewers
+  attr_accessible :body, :public, :title, :user, :role
   validates_presence_of :body, :title
 
-  def is_a_collaborator?(user_id)
-    collaborator_ids.include? user_id
+  def list_of_viewers
+    roles =[]
+    roles = Role.joins(:user).where(:status => 'viewer', :page_id => self.id)
+    roles.collect do |instance|
+      User.find_by_id(instance.user_id)
+    end    
   end
 
-  def is_a_viewer?(user_id)
-    viewer_ids.include? user_id
+  def list_of_collaborators
+    roles =[]
+    roles = Role.joins(:user).where(:status => 'collaborator', :page_id => self.id)
+    roles.collect do |instance|
+      User.find_by_id(instance.user_id)
+    end    
+  end
+
+  
+
+  def create_role(user)
+    role = Role.create(:page_id => self.id, :user_id => user.id, :status => 'owner')
   end
 
 end

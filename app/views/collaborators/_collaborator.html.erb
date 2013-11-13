@@ -1,13 +1,13 @@
 <div>
-<%= form_for page_create_collab_path(page) do |f|  %>
+<%= form_tag page_roles_path(page), method: :post do %>
 
 Please specificy who you would like to add as a collaborator to this page: 
 Add collaborators by email or username
 
 
-User name or Email <%= f.text_field :user %>
+User name or Email <%= text_field_tag :collaborator %>
 
-<%= f.submit %>
-<% end %>
+<%= submit_tag 'Add User' %>
 
 </div>
+<% end %>

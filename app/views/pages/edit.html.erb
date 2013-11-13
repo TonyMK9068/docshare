@@ -13,9 +13,9 @@
 <%= form_for @page, :method => :put do |f| %>
   <%= f.text_field :title, :value => @page.title %>
   <%= f.text_area :body, :value => @page.body %>
-  <%= f.submit 'Save', class: 'new-page-button', value: 'Save Changes' %>
-</div>
+  <%= f.submit 'Save', class: 'new-page-button' %>
 <% end %>
+</div>
 
 <div class="eight columns output-display">
   <h4>As will actually appear on your page:</h4>
@@ -25,7 +25,7 @@
 
 <% if current_user.subscriber %>
 <%= button_tag 'Page Settings', class: 'page-settings' %>
-  <% end %>
+<% end %>
 
 <div class="js-collab-popup hidden">
   <div class="collab-form">

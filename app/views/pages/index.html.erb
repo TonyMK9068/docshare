@@ -6,7 +6,7 @@
 </div>
 
 <div class="ten columns">
-<p> You have <%= @pages.count %> pages! </p>
+<p> You have <%= current_user.pages_owned.length %> pages! </p>
 <p>Select one from below to view or edit!</p>
 
 <!-- User created table -->
@@ -19,12 +19,13 @@
       <th>Last Update</th>
       <th>Private?</th>
       <th>Delete?</th>
+      <th>role</th>
     </tr>
   </thead>
  
   <tbody>
 
-    <% @pages.each do |page| %>
+    <% current_user.pages_owned.each do |page| %>
     <tr>
       <td><%= page.title %></td>
       <td> <%= link_to 'View page', page %> </td>
@@ -32,45 +33,44 @@
       <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
       <td><%= page.public %></td>
       <td><%= link_to page, method: :delete, class: 'delete-button' %></td>
+      <td><%= current_user.display_role(page) %>
     </tr>
     <% end %>
 
   </tbody>
 </table>
 <br/>
+
 <!-- Is a collaborator of..... -->
 <p><strong>Pages you've been added as a collaborator:</strong></p>
-<% if current_user.can_collaborate == false %>
-<small> Sorry, no users have added you </small>
+
+<% if current_user.pages_can_collaborate.length < 1 %>
+  <small> Sorry, no users have added you </small>
+
 <% else %>
+  <table class="collab-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Link</th>
+      <th>Last Updated</th>
+      <th>Private?</th>
+    </tr>
+  </thead>
 
-<table class="collab-table">
-<thead>
-<% current_user.can_collaborate do |page| %>
-<% listing = page.page_id %>
-  <tr>
-    <th>Title</th>
-    <th>Link</th>
-    <th>Last Updated</th>
-    <th>Private?</th>
-  </tr>
-</thead>
-  
+  <tbody>
+    <% current_user.pages_can_collaborate do |page| %>
 
-<tbody>
-  <tr>
-    <td><%= listing.pages.title %></td>
-    <td><%= link_to 'View page', listing %></td>
-    <td>listing.pages.updated_at.localtime.strftime("%b %d, %Y")</td>
-    <td>listing.page.public</td>
-  </tr>
-</tbody>
-    <div class="page-link">
-    <%= link_to(page.title , page, class: "page-index") %>
-    </div>
-    <% end %>
+    <tr>
+      <td><%= page.title %></td>
+      <td><%= link_to 'View page', page %></td>
+      <td>page.updated_at.localtime.strftime("%b %d, %Y")</td>
+      <td>page.public</td>
+    </tr>
+<% end %>
+  </tbody>
 
-</table>
+  </table>
 </div>
 <% end %>
 

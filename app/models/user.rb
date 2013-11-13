@@ -4,19 +4,47 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :pages
-  has_many :can_collaborate,  class_name: "Page", foreign_key: "collaborator_id"
-  has_many :can_view, class_name: "Page", foreign_key: "viewer_id"
+  has_many :roles, dependent: :destroy
+  has_many :pages,  through: :roles
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :can_collaborate, :can_view,
-                  :remember_me, :username, :subscriber, :collaborator, :viewer
+  attr_accessible :email, :password, :password_confirmation,
+                  :remember_me, :username, :subscriber, :role
   # attr_accessible :title, :body
-validates_presence_of :username
-validates_uniqueness_of :username
+  validates_presence_of :username
+  validates_uniqueness_of :username
   
- def update_user_subscribed
-  self.update_attribute(:subscriber, true)
- end
+  def update_user_subscribed
+    self.update_attribute(:subscriber, true)
+  end
+
+  def pages_owned
+    roles =[]
+    roles = Role.joins(:page).where(:status => 'owner', :user_id => self.id)
+    roles.collect do |instance|
+      Page.find_by_id(instance.page_id)
+    end
+  end
+
+  def pages_can_collaborate
+    roles =[]
+    roles = Role.joins(:page).where(:status => 'collaborator', :user_id => self.id)
+    roles.collect do |instance|
+      Page.find_by_id(instance.page_id)
+    end
+  end
+
+  def pages_can_view
+    roles =[]
+    roles = Role.joins(:page).where(:status => 'viewer', :user_id => self.id)
+    roles.collect do |instance|
+      Page.find_by_id(instance.page_id)
+    end
+  end
+
+  def display_role(page)
+    role = Role.where(:user_id => self.id, :page_id => page.id).first.status
+  end
+
 
 end

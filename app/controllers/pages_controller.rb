@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
+
   def index
-    @pages = current_user.pages.all
-    authorize! :destroy, Page, message: "You must be the account owner to view page index"
+    @pages = current_user.pages
+    authorize! :read, Page, message: "You must be the account owner to view page index"
   end
 
   def new
@@ -10,9 +11,11 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = current_user.pages.build(params[:page])
+    @user = current_user
+    @page = @user.pages.build(params[:page])
     authorize! :create, Page, message: "You need to be signed up to do that"
     if @page.save
+      @page.create_role(current_user)
       flash[:notice] = "Page created successfully"
       redirect_to @page
     else
@@ -36,8 +39,8 @@ class PagesController < ApplicationController
     else
       flash[:error] = "Error updating. Please try again later"
       render :index
+    end
   end
-end
 
   def show
     @page = Page.find(params[:id])
@@ -55,5 +58,6 @@ end
       render :index
     end
   end
+
 
 end
