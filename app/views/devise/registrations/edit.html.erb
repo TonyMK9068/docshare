@@ -27,7 +27,11 @@
 
 <div>
   <% if current_user.subscriber %>
-  <div>You are a subscriber. Thanks!</div>
+  <div>
+  <h3>Cancel Subscription?</h3>
+  <small>Don't worry, your subscriber status will remain until next billing period</small>
+  <%= link_to 'Stop payments', charge_path(current_user.charges.last), method: :delete %>
+  </div>
   <% else %>
   <div>
   <h3>Upgrade Account?</h3>

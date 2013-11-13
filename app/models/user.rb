@@ -16,8 +16,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :email
 
   #upon authentication, subscriber status is checked
-  Warden::Manager.after_set_user do |user,auth,opts|
-    if user.charges.count > 0
+
+  Warden::Manager.after_authentication do |user,auth,opts|
+    if user.charges.length > 0
       id = user.charges.last.customer_id
       customer = Stripe::Customer.retrieve(id)
       if customer.subscription[:status] == "active"
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
       end
     end
   end
-  
+
   def update_user_subscribed
     self.update_attribute(:subscriber, true)
   end

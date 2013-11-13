@@ -1,26 +1,24 @@
 class ChargesController < ApplicationController
-  before_filter :setup_action
   
-####### method helpers ######
-  def create_charge(token)
+####### helper methods ######
+  def create_charge(customer)
     payment = Stripe::Charge.create(
     :amount => 499,
     :currency => "usd",
-    :card => token, # obtained with Stripe.js
-    :description => "Charge for DocShare subscrition"
-    )
+    :description => "Charge for DocShare subscrition",
+    :customer => customer.id )
   end
 
   def create_customer(token)
-    customer = Stripe::Customer.create(
-                :card  => token )
+    customer = Stripe::Customer.create(:card  => token )
   end
 
 ######controller actions ######
 
   def create
+    tokens = params[:stripeToken]
     if current_user.charges.length == 0
-      @customer = create_customer(@token)
+      @customer = create_customer(tokens)
     else
       @id = current_user.charges.first.customer_id
       @customer = Stripe::Customer.retrieve(@id)
@@ -29,9 +27,9 @@ class ChargesController < ApplicationController
     @charge = current_user.charges.build(customer_id: @customer.id)
     authorize! :create, Stripe::Charge, message: "Not authorized to make payment"
     if @charge.save
-      create_charge(@token)
+      create_charge(@customer)
       @customer.update_subscription(:plan => "docshare-subscription", :prorate => true)
-      flash[:notice] = "Subscription added successfully."
+      flash[:notice] = "Subscription added successfully. Please log back in for changes to take effect"
       redirect_to pages_path
     else
       flash[:error] ="Error making charge. Please try again."
@@ -43,16 +41,19 @@ class ChargesController < ApplicationController
     redirect_to pages_path
   end
 
-
   def destroy
-    @id = current_user.charges.first.customer_id
+    @charge = Charge.find(params[:id])
+    @id = current_user.charges.last.customer_id
     @customer = Stripe::Customer.retrieve(@id)
+    authorize! :destroy, @charge, message: "You are not authorized to cancel this subscription."
     @customer.cancel_subscription(:at_perod_end => true)
+    if @customer.subscription.at_period_end == true
+      flash[:notice] = "Subscription canceled successfully"
+      redirect_to pages_path
+    else
+      flash[:error] = "Error canceling subscription. Please try again."
+      render pages_path
+    end
   end
 
-  private
-
-  def setup_action
-    @token = params[:stripeToken]
-  end
 end
