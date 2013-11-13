@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113062319) do
+ActiveRecord::Schema.define(:version => 20131113113136) do
 
   create_table "charges", :force => true do |t|
     t.integer  "user_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20131113062319) do
   add_index "pages", ["slug"], :name => "index_pages_on_slug"
   add_index "pages", ["user_id"], :name => "index_pages_on_user_id"
 
-  create_table "roles", :id => false, :force => true do |t|
+  create_table "roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "page_id"
     t.string   "status"

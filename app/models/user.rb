@@ -44,9 +44,7 @@ class User < ActiveRecord::Base
   def pages_can_collaborate
     roles =[]
     roles = Role.joins(:page).where(:status => 'collaborator', :user_id => self.id)
-    roles.collect do |instance|
-      Page.find_by_id(instance.page_id)
-    end
+    roles.map! { |instance| Page.find_by_id(instance.page_id) }
   end
 
   def pages_can_view

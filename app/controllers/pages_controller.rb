@@ -35,7 +35,7 @@ class PagesController < ApplicationController
     authorize! :update, @page, message: "Not authorized to edit this page"
     if @page.update_attributes(params[:page])
       flash[:notice] = "Update saved successfully"
-      redirect_to @page
+      redirect_to edit_page_path(@page)
     else
       flash[:error] = "Error updating. Please try again later"
       render :index

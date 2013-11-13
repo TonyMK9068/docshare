@@ -1,9 +1,9 @@
 <div>
   <%= form_tag page_roles_path(page), method: :post do %>
-  <strong>Add a collaborator to this page</strong> <br>
+    <strong>Add a collaborator to this page</strong> <br>
 
-  Enter username or email:
-  <%= text_field_tag :collaborator, nil, placeholder: 'Collaborator...' %>
-  <%= submit_tag 'Add Collaborator' %>
+    Enter username or email:
+    <%= text_field_tag :collaborator, nil, placeholder: 'Collaborator...' %>
+    <%= submit_tag 'Add Collaborator' %>
   <% end %>
 </div>

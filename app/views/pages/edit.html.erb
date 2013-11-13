@@ -2,20 +2,18 @@
   <%= stylesheet_link_tag 'pages' %>
 <% end %>
 
-
-<div class="ten columns offset-by-three ">
-<row>
-<h2>Edit content or settings for: <%= @page.title %></h2>
-</row>
+<div class="ten columns offset-by-three">
+  <row>
+    <h2>Edit content or settings for: <%= @page.title %></h2>
+  </row>
 </div>
 
 <div class="eight columns fixed-form">
-<%= form_for @page, :method => :put do |f| %>
-  <%= f.text_field :title, :value => @page.title %>
-  <%= f.text_area :body, :value => @page.body %>
-
-  <%= f.submit 'Save', class: 'new-page-button' %>
-<% end %>
+  <%= form_for @page, :method => :put do |f| %>
+    <%= f.text_field :title, :value => @page.title %>
+    <%= f.text_area :body, :value => @page.body %>
+    <%= f.submit 'Save', class: 'new-page-button' %>
+  <% end %>
 </div>
 
 <div class="eight columns output-display">
@@ -23,9 +21,7 @@
   <div class="overflow marked-text"></div>
 </div>
 
-<% if current_user.subscriber %>
-<%= button_tag 'Page Settings', class: 'page-settings' %>
-<% end %>
+<% button_tag('Page Settings', class: 'page-settings') if current_user.subscriber %>
 
 <div class="js-collab-popup hidden">
   <div class="privacy-settings">

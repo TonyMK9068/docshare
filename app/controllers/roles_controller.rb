@@ -11,38 +11,33 @@ class RolesController < ApplicationController
     @user
   end
 
-
   def create
     @page = Page.find(params[:page_id])
 
-  if params[:collaborator]
-    find_user(params[:collaborator])
-    @user
-    @status = 'collaborator'
-  else
-    find_user(params[:viewer])
-    @user
-    @status = 'viewer'
-  end
+    if params[:collaborator]
+      find_user(params[:collaborator])
+      @status = 'collaborator'
+    else
+      find_user(params[:viewer])
+      @status = 'viewer'
+    end
 
   @role = @user.roles.build(:page_id => @page.id, :status => @status)
   if @role.save
-      flash[:notice] = "User granted access"
-      redirect_to @page
+      redirect_to :back, notice: "User granted access."
     else
-      flash[:error] = "Error granting access. Please try again later"
-      render :index
+      flash[:error] = "Error granting access. Please try again later."
+      render 'pages/index'
     end
   end
 
   def destroy
     @role = Page.find(params[:id])
     if @role.destroy
-      flash[:notice] = "Access revoked successfully."
-      redirect_to :back
+      redirect_to :back, notice: "Access revoked successfully."
     else
       flash[:error] = "Error revoking access. Please try again."
-      render pages_path
+      render 'pages/index'
     end
   end
 end

@@ -7,7 +7,7 @@ class Ability
 
         if user.created_at 
             can [:create, :destroy], Charge, :user_id => user.id
-            can :create, Page
+            can :manage, Page
 
             user.pages_owned.each do |page|
                 can :manage, Page, :id => page.id

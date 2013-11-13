@@ -1,102 +1,94 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag 'pages' %>
 <% end %>
+
 <div class="sixteen columns">
-<h1> Hello <%= current_user.username %> </h1>
+  <h1> Hello <%= current_user.username %> </h1>
 </div>
 
 <div class="ten columns">
+  <p>You have <%= pluralize(current_user.pages_owned.length, 'page') %> ! </p>
+  <p>Select one from below to view or edit!</p>
 
-<p> You have <%= pluralize(current_user.pages_owned.length, 'page') %> ! </p>
-<p>Select one from below to view or edit!</p>
+  <!-- User created table -->
+  <table class="user-created-tables">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>URL</th>
+        <th>Date Created</th>
+        <th>Last Update</th>
+        <th>Public?</th>
+        <th>Delete?</th>
+        <th>role</th>
+      </tr>
+    </thead>
 
-<!-- User created table -->
-<table class="user-created-tables">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>URL</th>
-      <th>Date Created</th>
-      <th>Last Update</th>
-      <th>Public?</th>
-      <th>Delete?</th>
-      <th>role</th>
-    </tr>
-  </thead>
- 
-  <tbody>
-
-    <% current_user.pages_owned.each do |page| %>
-    <tr>
-      <td><%= page.title %></td>
-      <td> <%= link_to page_path(page), page %> </td>
-      <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
-      <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
-
-      <td><%= page.public %></td>
-      <td><%= link_to page, method: :delete, class: 'delete-button' %></td>
-      <td><%= current_user.display_role(page) %>
-    </tr>
-    <% end %>
-
-  </tbody>
-</table>
-<br/>
-
-<!-- Is a collaborator of..... -->
-<p><strong>Pages you've been added as a collaborator:</strong></p>
-<% if current_user.pages_can_collaborate.length < 1 %>
-  <small> Sorry, no users have added you </small>
-<% else %>
-  <table class="collab-table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Link</th>
-      <th>Last Updated</th>
-      <th>Private?</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% current_user.pages_can_collaborate do |page| %>
-
-    <tr>
-      <td><%= page.title %></td>
-      <td><%= link_to 'View page', page %></td>
-      <td>page.updated_at.localtime.strftime("%b %d, %Y")</td>
-      <td>page.public</td>
-    </tr>
-<% end %>
-  </tbody>
-
+    <tbody>
+      <% current_user.pages_owned.each do |page| %>
+      <tr>
+        <td><%= page.title %></td>
+        <td> <%= link_to page_path(page), page %> </td>
+        <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
+        <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
+        <td><%= page.public %></td>
+        <td><%= link_to page, method: :delete, class: 'delete-button' %></td>
+        <td><%= current_user.display_role(page) %></td>
+      </tr>
+      <% end %>
+    </tbody>
   </table>
-</div>
+  <br/>
+
+  <!-- Is a collaborator of..... -->
+  <p><strong>Pages you've been added as a collaborator:</strong></p>
+  <% if current_user.pages_can_collaborate.length.to_i < 1 %>
+    <small> Sorry, no users have added you </small>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Link</th>
+          <th>Last Updated</th>
+          <th>Private?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% current_user.pages_can_collaborate do |page| %>
+          <tr>
+            <td><%= page.title %></td>
+            <td><%= link_to 'View page', page %></td>
+            <td><%= page.updated_at.localtime.strftime("%b %d, %Y") %></td>
+            <td><%= page.public %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
 
+<!-- subscriber content -->
 <div class="six columns">
-<% if current_user.subscriber %>
-
-<h5 class="charge-success">Thank you for subscribing!</h5>
-<% else %>
-
-<h3>Upgrade Account?</h3>
-<%= form_tag charges_path do %>
-  <article>
-    <label class="amount">
-      <span>As a subscriber you're allowed access to privacy controls for your pages and given the ability to  define contributors to each page </span>
-      <p>Subscription is : $4.99 billed due monthly</p>
-    </label>
-  </article>
-
-  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+  <% if current_user.subscriber %>
+    <h5 class="charge-success">Thank you for subscribing!</h5>
+  <% else %>
+    <h3>Upgrade Account?</h3>
+    <%= form_tag charges_path do %>
+      <article>
+        <label class="amount">
+          <span>As a subscriber you're allowed access to privacy controls for your pages and given the ability to  define contributors to each page </span>
+          <p>Subscription is : $4.99 billed due monthly</p>
+        </label>
+      </article>
+      
+      <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Become a subscriber at DocShare"
           data-currency="usd"
           data-amount="499"
           data-name="DocShare"></script>
 
+    <% end %>
   <% end %>
 </div>
-
-<% end %>

@@ -66,7 +66,7 @@ $(document).ready(function(){
   .keyup();
   });
   $('.close').click(function(){
-    $('div.alert').slideUp('slow');
+    $('div.alert').slideUp('fast');
     $('div')
   });
 });

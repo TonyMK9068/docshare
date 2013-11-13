@@ -2,21 +2,17 @@
   <%= stylesheet_link_tag 'pages' %>
 <% end %>
 
-
 <div class="sixteen columns center">
-<h2><%= @page.title %></h2> 
+  <h2><%= @page.title %></h2> 
 </div>
 
 <div class="three columns">
-<%= link_to 'Edit Page', edit_page_path, class: 'button' %>
-<%= link_to 'Delete Page', @page, method: :delete, class: 'button' %>
+  <%= link_to 'Edit Page', edit_page_path, class: 'button' %>
+  <%= link_to 'Delete Page', @page, method: :delete, class: 'button' %>
 </div>
 
-
 <div class="ten columns off-set-by-one output-display show-apge">
-
-<%= markdown(@page.body)  %>
-
+  <%= markdown(@page.body)  %>
 </div>
 
 

@@ -1,8 +1,8 @@
 <div>
   <%= form_tag [page, Role.new], method: :post do %>
-  <strong>Authorize a user to view this page:</strong> <br>
-  Enter username or email:
-  <%= text_field_tag :viewer, nil, :placeholder => 'Viewer...' %>
-  <%= submit_tag 'Add Viewer' %>
+    <strong>Authorize a user to view this page:</strong> <br>
+    Enter username or email:
+    <%= text_field_tag :viewer, nil, :placeholder => 'Viewer...' %>
+    <%= submit_tag 'Add Viewer' %>
   <% end %>
 </div>
