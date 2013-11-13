@@ -46,13 +46,13 @@ class ChargesController < ApplicationController
     @id = current_user.charges.last.customer_id
     @customer = Stripe::Customer.retrieve(@id)
     authorize! :destroy, @charge, message: "You are not authorized to cancel this subscription."
-    @customer.cancel_subscription(:at_perod_end => true)
-    if @customer.subscription.at_period_end == true
+    @customer.cancel_subscription(:at_period_end => true)
+    if @customer.subscription[:at_period_end] == true
       flash[:notice] = "Subscription canceled successfully"
-      redirect_to pages_path
+      redirect_to '/pages'
     else
       flash[:error] = "Error canceling subscription. Please try again."
-      render pages_path
+      redirect_to '/pages'
     end
   end
 

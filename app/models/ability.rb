@@ -6,7 +6,7 @@ class Ability
         user ||= User.new # guest user (not logged in)
 
         if user.created_at 
-            can :create, Stripe::Charge, :email => user.email
+            can [:create, :destroy], Charge, :user_id => user.id
             can :create, Page
 
             user.pages_owned.each do |page|
