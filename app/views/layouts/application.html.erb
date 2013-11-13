@@ -35,12 +35,12 @@
             <li class="nav-tab two columns"><%= link_to "home", pages_path, class: "home nav-link" %></li>
             <li class="nav-tab two columns"><%= link_to "about", about_path, class: "about nav-link" %></li>
             <li class="nav-tab two columns"><%= link_to "new page", new_page_path, class: "nav-link" %></li>
-            <li class="nav-tab two columns account"><%= link_to "account", '#', class: "nav-link" %>
-              <div id="account-options" class="hidden">
-                <div class="two columns dropdown"><%= link_to "log out", destroy_user_session_path, method: :delete, class: "nav-link logout" %></div>
-                <div class="two columns dropdown"><%= link_to "settings", edit_user_registration_path, class: "nav-link settings" %> </div>
+            <li class="nav-tab two columns account"><%= link_to "account", '#', class: "nav-link" %> </li>
+              <div id="account-options" class="hidden two columns">
+                <%= link_to "log out", destroy_user_session_path, method: :delete, class: "drop-down-link logout" %>
+                <%= link_to "settings", edit_user_registration_path, class: "drop-down-link settings" %>
               </div>
-            </li>
+
           </ul>
         </div>
 

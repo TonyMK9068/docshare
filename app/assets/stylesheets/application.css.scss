@@ -89,11 +89,12 @@ a:visited {
   padding:0;
   height:40px;
   background-color:rgba(0, 102, 255, .7);
+  box-shadow: 10px 10px 10px #888888;
 }
 
 .account {
   display:inline-block;
-  }
+}
 
 .nav-tab{
   width:25%;
@@ -114,28 +115,34 @@ a.nav-link {
   color:white;
 }
 
-.droppdown {
-  text-align:center;
-  width:30px;
-}
-
 #account-options {
-
-z-index:5;
-color:white;
-}
-
-div.two.columns.dropdown {
+  z-index:5;
   background-color: rgba(0, 102, 255, 0.701961);
-  border:1px solid black;
-  position:relative;
-  left:-9%;
+  width:144px;
+  position:absolute;
+  top:100%;
+  right:29%;
+    box-shadow: 10px 10px 10px #888888;
 }
 
+a.drop-down-link {
+  display:block;
+  font-size:15px;
+  text-align:center;
+  color:white;
+  height:25px;
+  text-transform: uppercase;
+  text-decoration:none;
+  font-weight:bold;
+  padding-top:10px;
+  padding-bottom:5px;
+  border:1px solid #0000CC;
 
+
+}
 /* --------------------- Buttons --------------------- */
 
 .button.delete {
   margin:0;
- background: #eeeeee -webkit-linear-gradient(top, rgba(255, 0, 0, 1) 0%, rgb(255, 130, 130) 100%);
+  background: #eeeeee -webkit-linear-gradient(top, rgba(255, 0, 0, 1) 0%, rgb(255, 130, 130) 100%);
 }

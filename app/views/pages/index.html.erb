@@ -3,12 +3,12 @@
 <% end %>
 
 <div class="sixteen columns">
-  <h1> Hello <%= current_user.username %> </h1>
+  <h1 class="center"> Hello <%= current_user.username %> </h1>
 </div>
 
-<div class="ten columns">
-  <p>You have <%= pluralize(current_user.pages_owned.length, 'page') %> ! </p>
-  <p>Select one from below to view or edit!</p>
+<div class="eight columns">
+ <h3> <strong>You have created <%= pluralize(current_user.pages_owned.length, 'page') %>!</strong> </h3>
+  <p>Select a page from below to view or edit:</p>
 
   <!-- User created table -->
   <table class="user-created-tables">
@@ -20,7 +20,6 @@
         <th>Last Update</th>
         <th>Public?</th>
         <th>Delete?</th>
-        <th>role</th>
       </tr>
     </thead>
 
@@ -32,8 +31,7 @@
         <td><%= page.created_at.localtime.strftime("%b %d, %Y") %></td>
         <td><%= page.updated_at.localtime.strftime("%b %d, %Y")   %></td>
         <td><%= page.public %></td>
-        <td><%= link_to page, method: :delete, class: 'delete-button' %></td>
-        <td><%= current_user.display_role(page) %></td>
+        <td><%= link_to 'x',page, method: :delete, class: 'delete-button' %></td>
       </tr>
       <% end %>
     </tbody>
@@ -41,9 +39,9 @@
   <br/>
 
   <!-- Is a collaborator of..... -->
-  <p><strong>Pages you've been added as a collaborator:</strong></p>
+  <h5><strong>Pages you've been added as a collaborator:</strong></h5>
   <% if current_user.pages_can_collaborate.length.to_i < 1 %>
-    <small> Sorry, no users have added you </small>
+    <p> Sorry, no users have added you </p>
   <% else %>
     <table>
       <thead>
@@ -55,7 +53,7 @@
         </tr>
       </thead>
       <tbody>
-        <% current_user.pages_can_collaborate do |page| %>
+        <% current_user.pages_can_collaborate.each do |page| %>
           <tr>
             <td><%= page.title %></td>
             <td><%= link_to 'View page', page %></td>
@@ -65,19 +63,22 @@
         <% end %>
       </tbody>
     </table>
+  <% end %>
   </div>
-<% end %>
+
 
 <!-- subscriber content -->
-<div class="six columns">
+<div class="five columns offset-by-one">
+<br/>
   <% if current_user.subscriber %>
-    <h5 class="charge-success">Thank you for subscribing!</h5>
+    <h4 class="center">Subscription Status: <strong>Active</strong></h4>
+    <h6 class="center">Thank you for subscribing!</h6>
   <% else %>
-    <h3>Upgrade Account?</h3>
+    <h3 class="center">Upgrade Account?</h3>
     <%= form_tag charges_path do %>
       <article>
         <label class="amount">
-          <span>As a subscriber you're allowed access to privacy controls for your pages and given the ability to  define contributors to each page </span>
+          <p>As a subscriber you're allowed access to privacy controls and given the ability to add collaborators to each of your pages.</p>
           <p>Subscription is : $4.99 billed due monthly</p>
         </label>
       </article>
