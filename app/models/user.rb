@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :email
 
   #upon authentication, subscriber status is checked
-
   Warden::Manager.after_authentication do |user,auth,opts|
     if user.charges.length > 0
       id = user.charges.last.customer_id
@@ -29,28 +28,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_user_subscribed
-    self.update_attribute(:subscriber, true)
+  #return an array of Role instances for a user. Parameter is one of the three status string values.
+  def user_role_instances(association)
+    user, roles = self, []
+    roles = lambda { |state| Role.joins(:page).where(:status => state, :user_id => user.id) }.call(association)
   end
 
-  def pages_owned
-    roles =[]
-    roles = Role.joins(:page).where(:status => 'owner', :user_id => self.id)
-    roles.collect do |instance|
-      Page.find_by_id(instance.page_id)
-    end
-  end
-
-  def pages_can_collaborate
-    roles =[]
-    roles = Role.joins(:page).where(:status => 'collaborator', :user_id => self.id)
-    roles.map! { |instance| Page.find_by_id(instance.page_id) }
-  end
-
-  def pages_can_view
-    roles =[]
-    roles = Role.joins(:page).where(:status => 'viewer', :user_id => self.id)
-    roles.collect do |instance|
+  #return Page instances that user is belongs to via role supplied in argument
+  def user_page_instances(association)
+    user, roles = self, []
+    roles = user.user_role_instances(association).collect do |instance|
       Page.find_by_id(instance.page_id)
     end
   end
@@ -58,6 +45,4 @@ class User < ActiveRecord::Base
   def display_role(page)
     role = Role.where(:user_id => self.id, :page_id => page.id).first.status
   end
-
-
 end

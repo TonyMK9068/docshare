@@ -115,14 +115,15 @@ a.nav-link {
   color:white;
 }
 
-#account-options {
+div.account-options.two.columns {
   z-index:5;
   background-color: rgba(0, 102, 255, 0.701961);
   width:144px;
   position:absolute;
   top:100%;
-  right:29%;
-    box-shadow: 10px 10px 10px #888888;
+  right:29.5%;
+  box-shadow: 10px 10px 10px #888888;
+  display:none;
 }
 
 a.drop-down-link {
@@ -137,7 +138,6 @@ a.drop-down-link {
   padding-top:10px;
   padding-bottom:5px;
   border:1px solid #0000CC;
-
 
 }
 /* --------------------- Buttons --------------------- */

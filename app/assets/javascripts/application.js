@@ -95,7 +95,7 @@ $(document).ready(function() {
 //Account nav bar drop down
 $(document).ready(function(){
   $('.account').click(function() {
-      $('#account-options').slideToggle('1200');
+      $('div.account-options').slideToggle('1200');
      // $('.two.columns.dropdown a.nav-link').css('color', '#6A6A69');
      // $('.two.columns.dropdown a.nav-link').css('background-color', 'white');
     });

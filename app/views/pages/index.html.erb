@@ -7,7 +7,7 @@
 </div>
 
 <div class="eight columns">
- <h3> <strong>You have created <%= pluralize(current_user.pages_owned.length, 'page') %>!</strong> </h3>
+ <h3> <strong>You have created <%= pluralize(current_user.user_page_instances('owner').length, 'page') %>!</strong> </h3>
   <p>Select a page from below to view or edit:</p>
 
   <!-- User created table -->
@@ -24,7 +24,7 @@
     </thead>
 
     <tbody>
-      <% current_user.pages_owned.each do |page| %>
+      <% current_user.user_page_instances('owner').each do |page| %>
       <tr>
         <td><%= page.title %></td>
         <td> <%= link_to page_path(page), page %> </td>
@@ -40,7 +40,7 @@
 
   <!-- Is a collaborator of..... -->
   <h5><strong>Pages you've been added as a collaborator:</strong></h5>
-  <% if current_user.pages_can_collaborate.length.to_i < 1 %>
+  <% if current_user.user_page_instances('collaborator').length.to_i < 1 %>
     <p> Sorry, no users have added you </p>
   <% else %>
     <table>
@@ -53,7 +53,7 @@
         </tr>
       </thead>
       <tbody>
-        <% current_user.pages_can_collaborate.each do |page| %>
+        <% current_user.user_page_instances('collaborator').each do |page| %>
           <tr>
             <td><%= page.title %></td>
             <td><%= link_to 'View page', page %></td>

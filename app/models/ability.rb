@@ -9,16 +9,16 @@ class Ability
             can [:create, :destroy], Charge, :user_id => user.id
             can :create, Page, :user_id => user.id
 
-            user.pages_owned.each do |page|
+            user.user_page_instances('owner').each do |page|
                 can :manage, Page, :id => page.id
                 can :manage, Role, :page_id => page.id
             end
 
-            user.pages_can_collaborate.each do |page|
+            user.user_page_instances('collaborator').each do |page|
                 can [:read, :update], Page, :id => page.id
             end
 
-            user.pages_can_view.each do |page|
+            user.user_page_instances('viewer').each do |page|
                 can :read, Page, :id => page.id
             end
         end

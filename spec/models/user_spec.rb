@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe User do
+  before do
+    user = create(:user)
+  end
 
-  describe "#update_user_subscribed" do
-    it "updates the user attribute :subscriber to true or false" do
-      user = create(:user)
-      user.update_user_subscribed
+  describe "#user_page_instances('owner')" do
+    it "returns an array of Page instances where user is declared as owner" do
+      user.
       user.subscriber.should be(true)
     end
   end

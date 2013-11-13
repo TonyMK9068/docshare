@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :role do
-    user ""
-    page nil
-    status "MyString"
+    user 'user'
+    page 'page'
+    status "owner"
   end
 end

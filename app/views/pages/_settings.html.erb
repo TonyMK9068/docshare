@@ -22,7 +22,7 @@
     </div>
     
     <div class="nine columns">
-      <% if page.list_of_viewers.length > 0 %>
+      <% if page.user_instances('viewer').count > 0 %>
         <div class="table four columns">
           <h5 class="center"> Viewers</h5>
           <table>
@@ -34,7 +34,7 @@
               </tr>
             </thead>
             <tbody>
-              <% page.list_of_viewers.each do |user| %>
+              <% page.user_instances('viewer').each do |user| %>
                 <tr>
                   <td><%= user.username %></td>
                   <td><%= user.email %></td>
@@ -46,7 +46,7 @@
         </div>
       <% end %>
       
-      <% if page.list_of_collaborators.length > 0 %>
+      <% if page.user_instances('collaborator').count > 0 %>
         <h5 class="center"> Collaborators</h5>
         <div class="table four columns">
           <table>
@@ -58,7 +58,7 @@
               </tr>
             </thead>
             <tbody>
-              <% page.list_of_collaborators.each do |user| %>
+              <% page.user_instances('collaborator').each do |user| %>
                 <% #role = (Role.joins(:page).where(:status => "collaborator", :user_id => user.id)) %>
                 <tr>
                   <td><%= user.username %></td>
