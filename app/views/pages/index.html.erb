@@ -7,7 +7,7 @@
 
 <div class="ten columns">
 
-<p> You have <%= pluralize(current_user.pages_owned.length, 'page' %> ! </p>
+<p> You have <%= pluralize(current_user.pages_owned.length, 'page') %> ! </p>
 <p>Select one from below to view or edit!</p>
 
 <!-- User created table -->
@@ -47,7 +47,6 @@
 <p><strong>Pages you've been added as a collaborator:</strong></p>
 <% if current_user.pages_can_collaborate.length < 1 %>
   <small> Sorry, no users have added you </small>
-
 <% else %>
   <table class="collab-table">
   <thead>

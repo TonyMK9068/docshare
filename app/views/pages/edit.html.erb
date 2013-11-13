@@ -28,10 +28,7 @@
 <% end %>
 
 <div class="js-collab-popup hidden">
-  <div class="collab-form">
-      <%= render partial: 'collaborators/collaborator', locals: { page: @page } %>
-  </div>
   <div class="privacy-settings">
-    <%= render partial: 'viewers/settings', locals: { page: @page } %>
+    <%= render partial: 'settings', locals: { page: @page } %>
   </div>
 </div>

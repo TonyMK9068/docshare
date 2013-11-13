@@ -1,36 +1,9 @@
 <div>
-<%= form_tag page_roles_path(page), method: :post do %>
+  <%= form_tag page_roles_path(page), method: :post do %>
+  <strong>Add a collaborator to this page</strong> <br>
 
-Please specificy who you would like to add as a collaborator to this page: 
-Add collaborators by email or username
-
-
-User name or Email <%= text_field_tag :collaborator %>
-
-<%= submit_tag 'Add User' %>
-<% end %>
+  Enter username or email:
+  <%= text_field_tag :collaborator, nil, placeholder: 'Collaborator...' %>
+  <%= submit_tag 'Add Collaborator' %>
+  <% end %>
 </div>
-
-  <div>
-    <table>
-      <thead>
-      <tr>Collaborators:</tr>
-        <tr>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Date Added</th>
-          <th>Remove?</th>
-        </tr>
-      </thead>
-      <% page.list_of_collaborators.each do |user| %>
-        <tbody>
-          <tr>
-              <td><%= user.username %></td>
-              <td><%= user.email %></td>
-              <td><%= link_to "x", [page, collab], :method => :delete  %></td>
-          </tr>
-        </tbody>
-      <% end %>
-    </table>
-  </div>
-
