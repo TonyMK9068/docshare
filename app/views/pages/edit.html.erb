@@ -12,7 +12,7 @@
   <%= form_for @page, :method => :put do |f| %>
     <%= f.text_field :title, :value => @page.title %>
     <%= f.text_area :body, :value => @page.body %>
-    <%= f.submit 'Save', class: 'new-page-button' %>
+    <%= f.submit 'Update', class: 'new-page-button' %>
   <% end %>
 </div>
 
@@ -21,7 +21,9 @@
   <div class="overflow marked-text"></div>
 </div>
 
-<% button_tag('Page Settings', class: 'page-settings') if current_user.subscriber %>
+<% if can? :manage, @page %>
+  <%= button_tag('Page Settings', class: 'page-settings') if current_user.subscriber %>
+<% end %>
 
 <div class="js-collab-popup hidden">
   <div class="privacy-settings">

@@ -39,7 +39,6 @@ a:visited {
 
 .alert {
   color:black;
-  background-color:rgba(247, 235, 2, .7);
   font-size:20px;
   font-family:Verdana;
   text-align:right;
@@ -47,21 +46,38 @@ a:visited {
   box-shadow: 10px 10px 10px #888888;
   position:absolute;
   top:1px;
-  left:15%;
   z-index:1000;
   padding:10px;
-  width:70%;
+  padding-top:20px;
+  width:90%;
+  left:5%;
   margin:auto;
+  background: linear-gradient(45deg, #F0F066 10%,
+   #FFFF00 10%, #FFFF00 20%, #F0F066 20%, #F0F066 30%,
+   #FFFF00 30%, #FFFF00 40%, #F0F066 40%, #F0F066 50%,
+   #FFFF00 50%, #FFFF00 60%, #F0F066 60%, #F0F066 70%,
+   #FFFF00 70%, #FFFF00 80%, #F0F066 80%, #F0F066 90%, 
+   #FFFF00 90%);
 }
 
 .alert.alert-error {
-  background-color:#FF0000;
+  background: linear-gradient(45deg, #E60000 10%,
+   #ED4747 10%, #ED4747 20%, #E60000 20%, #E60000 30%,
+   #ED4747 30%, #ED4747 40%, #E60000 40%, #E60000 50%,
+   #ED4747 50%, #ED4747 60%, #E60000 60%, #E60000 70%,
+   #ED4747 70%, #ED4747 80%, #E60000 80%, #E60000 90%, 
+   #ED4747 90%);
   border:2px solid #990000;
   color:white;
 }
 
 .alert.alert-info {
-  background-color:rgba(19, 114, 191, .7);
+  background: linear-gradient(45deg, #4082E6 10%,
+   #599CFF 10%, #599CFF 20%, #4082E6 20%, #4082E6 30%,
+   #599CFF 30%, #599CFF 40%, #4082E6 40%, #4082E6 50%,
+   #599CFF 50%, #599CFF 60%, #4082E6 60%, #4082E6 70%,
+   #599CFF 70%, #599CFF 80%, #4082E6 80%, #4082E6 90%, 
+   #599CFF 90%);
   border:2px solid #003D99;
   color:white;
 }

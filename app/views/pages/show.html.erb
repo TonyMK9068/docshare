@@ -6,10 +6,12 @@
   <h2><%= @page.title %></h2> 
 </div>
 
+
 <div class="three columns">
-  <%= link_to 'Edit Page', edit_page_path, class: 'button' %>
-  <%= link_to 'Delete Page', @page, method: :delete, class: 'button' %>
+  <%= link_to('Edit Page', edit_page_path, class: 'button') if can? :update, @page  %>
+  <%= link_to('Delete Page', @page, method: :delete, class: 'button') if can? :manage, @page %>
 </div>
+
 
 <div class="ten columns off-set-by-one output-display show-apge">
   <%= markdown(@page.body)  %>
