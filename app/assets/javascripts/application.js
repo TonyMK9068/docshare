@@ -17,7 +17,6 @@
 
 // Set default options except highlight which has no default
 
-
 $(document).ready(function(){
   $('.nav-link').hover(
     function() {
@@ -72,7 +71,6 @@ $(document).ready(function(){
   });
 });
 
-
 // Toggle page settings for edit view
 $(document).ready(function() {
   $('.page-settings').click(function() {
@@ -102,8 +100,6 @@ $(document).ready(function(){
      // $('.two.columns.dropdown a.nav-link').css('background-color', 'white');
     });
 });
-
-
 
 // (function($) {
 //    $.fn.textSimple = function(content) {

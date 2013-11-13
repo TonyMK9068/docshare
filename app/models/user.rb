@@ -6,13 +6,27 @@ class User < ActiveRecord::Base
 
   has_many :roles, dependent: :destroy
   has_many :pages,  through: :roles
+  has_many :charges
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :username, :subscriber, :role
+                  :remember_me, :username, :subscriber, :role, :charge
   # attr_accessible :title, :body
-  validates_presence_of :username
-  validates_uniqueness_of :username
+  validates_presence_of :username, :email
+  validates_uniqueness_of :username, :email
+
+  #upon authentication, subscriber status is checked
+  Warden::Manager.after_set_user do |user,auth,opts|
+    if user.charges.count > 0
+      id = user.charges.last.customer_id
+      customer = Stripe::Customer.retrieve(id)
+      if customer.subscription[:status] == "active"
+        user.update_attribute(:subscriber, true)
+      else
+        user.update_attribute(:subscriber, false)
+      end
+    end
+  end
   
   def update_user_subscribed
     self.update_attribute(:subscriber, true)

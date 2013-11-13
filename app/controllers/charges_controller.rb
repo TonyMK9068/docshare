@@ -1,35 +1,58 @@
 class ChargesController < ApplicationController
-  after_filter :update_user
+  before_filter :setup_action
+  
+####### method helpers ######
+  def create_charge(token)
+    payment = Stripe::Charge.create(
+    :amount => 499,
+    :currency => "usd",
+    :card => token, # obtained with Stripe.js
+    :description => "Charge for DocShare subscrition"
+    )
+  end
+
+  def create_customer(token)
+    customer = Stripe::Customer.create(
+                :card  => token )
+  end
+
+######controller actions ######
 
   def create
-    # Amount in cents
-    @amount = 499
-    @user = current_user
-
-    authorize! :create, Stripe::Charge, message: "Not authorized to make charge"
-
-    customer = Stripe::Customer.create(
-      :email => @user.email,
-      :card  => params[:stripeToken],
-      :plan => 'basic',
-      :metadata => { :user => current_user.id }
-    )
-
-    charge = Stripe::Charge.create(
-      :customer    => customer.id,
-      :amount      => @amount,
-      :description => 'Rails Stripe customer',
-      :currency    => 'usd'
-    )
-    rescue Stripe::CardError => e
-    flash[:error] = e.message
+    if current_user.charges.length == 0
+      @customer = create_customer(@token)
+    else
+      @id = current_user.charges.first.customer_id
+      @customer = Stripe::Customer.retrieve(@id)
+    end
     
+    @charge = current_user.charges.build(customer_id: @customer.id)
+    authorize! :create, Stripe::Charge, message: "Not authorized to make payment"
+    if @charge.save
+      create_charge(@token)
+      @customer.update_subscription(:plan => "docshare-subscription", :prorate => true)
+      flash[:notice] = "Subscription added successfully."
+      redirect_to pages_path
+    else
+      flash[:error] ="Error making charge. Please try again."
+      render root_path
+    end
+  
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to pages_path
+  end
 
+
+  def destroy
+    @id = current_user.charges.first.customer_id
+    @customer = Stripe::Customer.retrieve(@id)
+    @customer.cancel_subscription(:at_perod_end => true)
   end
 
   private
 
-  def update_user 
-    current_user.update_attributes(:subscriber => true)
+  def setup_action
+    @token = params[:stripeToken]
   end
 end

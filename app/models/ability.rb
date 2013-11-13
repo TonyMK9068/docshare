@@ -15,11 +15,11 @@ class Ability
             end
 
             user.pages_can_collaborate.each do |page|
-                can [:read, :update], Page, :id => page.page_id
+                can [:read, :update], Page, :id => page.id
             end
 
             user.pages_can_view.each do |page|
-                can :read, Page, :id => page.page_id
+                can :read, Page, :id => page.id
             end
         end
 

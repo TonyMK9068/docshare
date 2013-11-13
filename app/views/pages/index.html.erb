@@ -91,9 +91,10 @@
 
   <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="A month's subscription"
+          data-description="Become a subscriber at DocShare"
           data-currency="usd"
-          data-amount="499"></script>
+          data-amount="499"
+          data-name="DocShare"></script>
 
   <% end %>
 </div>

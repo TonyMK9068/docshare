@@ -1,7 +1,7 @@
 Docshare::Application.routes.draw do
   devise_for :users
 
-  resources :charges, only: :create
+  resources :charges, only: [:create, :destroy]
 
   resources :pages do
     resources :roles, only: [:create, :destroy]
