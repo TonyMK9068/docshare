@@ -17,6 +17,7 @@ rand(15..30).times do
       )
       # set the created_at to a time within the past year
     p.update_attribute(:created_at, Time.now - rand(600..31536000))
+    p.create_role(u)
   end
 end
 

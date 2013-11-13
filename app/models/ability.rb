@@ -5,31 +5,25 @@ class Ability
 
         user ||= User.new # guest user (not logged in)
 
-        if user.subscriber == true
-            can :manage, Page, :user_id => user.id
+        if user.created_at 
             can :create, Stripe::Charge, :email => user.email
+            can :create, Page
 
+            user.pages_owned.each do |page|
+                can :manage, Page, :id => page.id
+                can :manage, Role, :page_id => page.id
+            end
 
-            user.pages.each do |access| 
-                can [:create, :destroy], Collaborator, :user_id => user.id
-                can [:create, :destroy], Viewer, :user_id => user.id
+            user.pages_can_collaborate.each do |page|
+                can [:read, :update], Page, :id => page.page_id
+            end
+
+            user.pages_can_view.each do |page|
+                can :read, Page, :id => page.page_id
             end
         end
 
-        if user.confirmed_at
-            can [:create, :read, :update, :destroy], Page, :user_id => user.id
-            can :create, Stripe::Charge, :email => user.email
-            #collaborators may only update read a page when the page_ids match
-            user.collaborators.each do |access|
-                can [:update, :read], Page, :page_id => access.page_id
-            end
-
-            user.viewers.each do |access|
-                can :read, Page, :page_id => access.page_id
-            end
-        end
-
-    can  :read, Page, public: true # option for visitors
+    can  :read, Page, public: true # public pages visible to all
 
     end
 end

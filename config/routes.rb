@@ -4,9 +4,7 @@ Docshare::Application.routes.draw do
   resources :charges, only: :create
 
   resources :pages do
-    resources :viewers, only: [:create, :destroy]
-    resources :collaborators, only: [:create, :destroy]
-
+    resources :roles, only: [:create, :destroy]
   end
 
   match 'about', to: 'welcome#about', via: :get

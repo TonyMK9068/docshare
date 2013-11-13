@@ -13,28 +13,25 @@
 <%= form_for @page, :method => :put do |f| %>
   <%= f.text_field :title, :value => @page.title %>
   <%= f.text_area :body, :value => @page.body %>
-  <%= f.submit 'Save', class: 'new-page-button', value: 'Save Changes' %>
+
+  <%= f.submit 'Save', class: 'new-page-button' %>
+<% end %>
 </div>
-  <% end %>
 
 <div class="eight columns output-display">
   <div class="overflow marked-title"></div>
   <div class="overflow marked-text"></div>
 </div>
 
-
 <% if current_user.subscriber %>
 <%= button_tag 'Page Settings', class: 'page-settings' %>
-  <% end %>
+<% end %>
 
-<div class="js-collab-popup hidden ">
-
+<div class="js-collab-popup hidden">
   <div class="collab-form">
       <%= render partial: 'collaborators/collaborator', locals: { page: @page } %>
   </div>
   <div class="privacy-settings">
     <%= render partial: 'viewers/settings', locals: { page: @page } %>
   </div>
-
 </div>
-
