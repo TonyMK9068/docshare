@@ -9,7 +9,7 @@ class Page < ActiveRecord::Base
   validates_presence_of :body, :title, :slug
   validates_uniqueness_of :slug
   
-  attr_accessible :body, :public, :title, :user, :role
+  attr_accessible :body, :public, :title, :user, :role, :slug
 
   #returns array of Role instances belonging to page for status value supplied in parameter
   def page_role_instances(association)
@@ -25,6 +25,8 @@ class Page < ActiveRecord::Base
     end    
   end
 
+  # creates a role instance given a user instance as argument with status defined as owner
+  # used in page controller to set owner attribute for user creating a new page
   def create_role(user)
     role = Role.create(:page_id => self.id, :user_id => user.id, :status => 'owner')
   end

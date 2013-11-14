@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :role do
-    user 'user'
-    page 'page'
     status "owner"
+    page_id
+    user_id
   end
 end
