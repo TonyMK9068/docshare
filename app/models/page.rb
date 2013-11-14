@@ -1,8 +1,10 @@
 class Page < ActiveRecord::Base
-  
+
   extend FriendlyId
   friendly_id :title, :use => :slugged
 
+  has_paper_trail :only => [:body => Proc.new { |obj| !obj.body.blank? } ], :on => [:update, :destroy]
+                  
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
 
@@ -29,6 +31,10 @@ class Page < ActiveRecord::Base
   # used in page controller to set owner attribute for user creating a new page
   def create_role(user)
     role = Role.create(:page_id => self.id, :user_id => user.id, :status => 'owner')
+  end
+
+  def number_of_versions
+    self.versions.count
   end
 
 end

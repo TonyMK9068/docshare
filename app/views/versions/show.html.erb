@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'pages' %>
+<% end %>
+
+<div class="sixteen columns center">
+  <h2><%= @version.title %></h2> 
+</div>
+
+<div class="ten columns off-set-by-one output-display show-page">
+  <%= markdown(@version.body)  %>
+</div>

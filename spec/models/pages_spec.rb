@@ -56,6 +56,7 @@ describe Page do
     end
   end
 
+# remove
   describe "#user_instances(association)" do
     before(:each) do
       @page = nil
@@ -89,6 +90,7 @@ describe Page do
     end
   end
 
+#redescribe
   describe '#create_role(user)' do
     
     before(:each) do
@@ -103,6 +105,8 @@ describe Page do
       @page.roles.create(:status => 'collaborator', :user_id => 2)
       @page.roles.create(:status => 'viewer', :user_id => 3)
     end
+
+page.owners should include (user)
 
     it "creates a new Role instance" do
       role = @page.create_role(@user1)
@@ -152,10 +156,37 @@ describe Page do
       page.save.should equal true
     end
   end
+
+  describe 'Slug entrees must be unique' do
+
+    it 'slug fails validation when matching another slug db entry' do
+    end
+
+    it 'passes validation when slug is unique' do
+    end
+  end
+
+  describe 'Body attribute must be atleast 15 characters long' do
+
+    it 'new instance fails validation when body is less than 15 characters long' do
+    end
+
+    it 'new instance passes validationwhen body is exactly 15 characters long' do
+    end
+
+    it 'new instance passes validation when body is greater than 15 characters long' do
+    end
+  end
+
+  describe 'Body attribute must be atleast 8 characters long' do
+
+    it 'new instance fails validation when body is less than 8 characters long' do
+    end
+
+    it 'new instance passes validationwhen body is exactly 8 characters long' do
+    end
+
+    it 'new instance passes validation when body is greater than 8 characters long' do
+    end
+  end
 end
-
-
-
-
-
-

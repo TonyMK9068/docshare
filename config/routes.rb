@@ -5,6 +5,8 @@ Docshare::Application.routes.draw do
 
   resources :pages do
     resources :roles, only: [:create, :destroy]
+    resources :versions, only: :show
+
   end
 
   match 'about', to: 'welcome#about', via: :get

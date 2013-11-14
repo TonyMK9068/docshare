@@ -17,4 +17,31 @@
   <%= markdown(@page.body)  %>
 </div>
 
+<div class="ten columns versions">
+Page Versions
+ <table id="version-table">
+    <thead>
+      <tr>
+        <th>Title (Click to view)</th>
+        <th>Date Created</th>
+        <th>Created By</th>
+        <th>Public?</th>
+        <th>Version Number</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% @page.number_of_versions.times do |n| %>
+    <% version = @page.versions[(n+1)*-1] %>
+      <tr>
+        <td> <%= link_to version.reify.title, page_version_path(@page, version) %> </td>
+        <td><%= version.created_at.localtime.strftime("%b %d, %Y %l:%M:%S %p") %></td>
+        <td><%= User.find(version.originator.to_i).username if version.originator %></td>
+        <td><%= version.reify.public %></td>
+        <td>No. <%= n+1 %></td>
+      </tr>
+      <% end %>
+    </tbody>
+</div>
+
 
