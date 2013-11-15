@@ -1,26 +1,20 @@
 require 'spec_helper'
 
-  def user_setup
+describe User do
+
+    def user_setup
     @user1, @user2, @user3 = create(:user), create(:user), create(:user)
 
     @page1 = @user1.pages.create(attributes_for(:page))
     @page2 = @user2.pages.create(attributes_for(:page))
 
-    @role1 = Role.new(:user_id => @user1.id, :status => 'owner', :page_id => @page1.id)
-    @role1.save
-    @role2 = Role.new(:user_id => @user1.id, :status => 'collaborator', :page_id => @page2.id)
-    @role2.save
-    @role3 = Role.new(:user_id => @user1.id, :status => 'viewer', :page_id => @page2.id)
-    @role3.save
-    @role4 = Role.new(:user_id => @user2.id, :status => 'owner', :page_id => @page2.id)
-    @role4.save
-    @role5 = Role.new(:user_id => @user3.id, :status => 'viewer', :page_id => @page1.id)
-    @role5.save
-    @role6 = Role.new(:user_id => @user3.id, :status => 'collaborator', :page_id => @page2.id)
-    @role6.save
+    @role1 = @user1.roles.create(:status => 'owner', :page_id => @page1.id)
+    @role2 = @user1.roles.create(:status => 'collaborator', :page_id => @page2.id)
+    @role3 = @user1.roles.create(:status => 'viewer', :page_id => @page2.id)
+    @role4 = @user2.roles.create(:status => 'owner', :page_id => @page2.id)
+    @role5 = @user3.roles.create(:status => 'viewer', :page_id => @page1.id)
+    @role6 = @user3.roles.create(:status => 'collaborator', :page_id => @page2.id)
   end
-
-describe User do
 
   describe "#owners" do
 

@@ -1,18 +1,21 @@
 require 'spec_helper'
 
 describe Page do
+
+  def page_setup
+    user1, user2, user3 = create(:user), create(:user), create(:user)
+
+    @page = user1.pages.create(attributes_for(:page))
+
+    @role1 = @page.roles.create(:status => 'owner', :user_id => 1)
+    @role2 = @page.roles.create(:status => 'viewer', :user_id => 2 )
+    @role3 = @page.roles.create(:status => 'collaborator', :user_id => 2)
+    @role4 = @page.roles.create(:status => 'viewer', :user_id => 3)
+  end
      
   describe "#owners" do
-
     before(:each) do
-      user1, user2, user3 = create(:user), create(:user), create(:user)
-
-      @page = user1.pages.create(attributes_for(:page))
-
-      @role1 = @page.roles.create(:status => 'owner', :user_id => 1)
-      @role2 = @page.roles.create(:status => 'viewer', :user_id => 2 )
-      @role3 = @page.roles.create(:status => 'collaborator', :user_id => 2)
-      @role4 = @page.roles.create(:status => 'viewer', :user_id => 3)
+      page_setup
     end 
 
     it "returns instances where attribute :status => 'owner'" do
@@ -26,14 +29,7 @@ describe Page do
 
   describe "#collaborators" do
     before(:each) do
-      user1, user2, user3 = create(:user), create(:user), create(:user)
-
-      @page = user1.pages.create(attributes_for(:page))
-
-      @role1 = @page.roles.create(:status => 'owner', :user_id => 1)
-      @role2 = @page.roles.create(:status => 'viewer', :user_id => 2 )
-      @role3 = @page.roles.create(:status => 'collaborator', :user_id => 2)
-      @role4 = @page.roles.create(:status => 'viewer', :user_id => 3)
+      page_setup
     end 
 
     it "returns instances where attribute :status => 'collaborator'" do
@@ -46,15 +42,8 @@ describe Page do
   end
 
   describe "#viewers" do
-        before(:each) do
-      user1, user2, user3 = create(:user), create(:user), create(:user)
-
-      @page = user1.pages.create(attributes_for(:page))
-
-      @role1 = @page.roles.create(:status => 'owner', :user_id => 1)
-      @role2 = @page.roles.create(:status => 'viewer', :user_id => 2 )
-      @role3 = @page.roles.create(:status => 'collaborator', :user_id => 2)
-      @role4 = @page.roles.create(:status => 'viewer', :user_id => 3)
+    before(:each) do
+      page_setup
     end 
 
     it "returns instances where attribute :status => 'viewer'" do

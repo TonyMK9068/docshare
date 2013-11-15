@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     @page = @user.pages.build(params[:page])
     authorize! :create, Page, message: "You need to be signed up to do that"
     if @page.save
-      @page.create_role(current_user)
+      @page.set_owner(current_user)
       flash[:notice] = "Page created successfully"
       redirect_to @page
     else
