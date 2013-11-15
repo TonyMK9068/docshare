@@ -1,40 +1,45 @@
 class Page < ActiveRecord::Base
-
   extend FriendlyId
-  friendly_id :title, :use => :slugged
+  attr_accessible :body, :public, :title, :user, :role, :slug
 
+  friendly_id :title, :use => :slugged
   has_paper_trail :only => [:body => Proc.new { |obj| !obj.body.blank? } ], :on => [:update, :destroy]
                   
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
 
-  validates_presence_of :body, :title, :slug
-  validates_uniqueness_of :slug
-  
-  attr_accessible :body, :public, :title, :user, :role, :slug
-
-  #returns array of Role instances belonging to page for status value supplied in parameter
-  def page_role_instances(association)
-    page, roles = self, []
-    roles = lambda { |state| Role.joins(:user).where(:status => state, :page_id => page.id) }.call(association)
+  def lambda_user
+    l = lambda { |state, page| Role.joins(:user).where(:status => state, :page_id => page.id) }
   end
 
-  #returns an array of User instances belonging to page through provided role
-  def user_instances(association)
-    page, roles = self, []
-    roles = self.page_role_instances(association).collect do |instance|
-      User.find_by_id(instance.user_id)
-    end    
+  #returns array of Role instances for page with owner status
+  def owners
+    lambda_user.call('owner', self)
   end
 
-  # creates a role instance given a user instance as argument with status defined as owner
+  #returns array of Role instances for page with collaborator status
+  def collaborators
+    lambda_user.call('collaborator', self)
+  end
+
+  #returns array of Role instances for page with viewer status
+  def viewers
+    lambda_user.call('viewer', self)
+  end
+
+  # creates an owner role for the user provided in by the parameter
   # used in page controller to set owner attribute for user creating a new page
-  def create_role(user)
+  def set_owner(user)
     role = Role.create(:page_id => self.id, :user_id => user.id, :status => 'owner')
   end
 
   def number_of_versions
-    self.versions.count
+    self.versions.index.count
   end
 
+  private
+
+  validates_presence_of :slug
+  validates :title, length: { minimum:6 }, presence: true
+  validates :body, length: { minimum:15 }, presence: true
 end

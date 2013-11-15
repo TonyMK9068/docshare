@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  attr_accessible :email, :password, :password_confirmation,
+                  :remember_me, :username, :subscriber, :role,
+                  :charge
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -9,11 +11,8 @@ class User < ActiveRecord::Base
   has_many :charges
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :username, :subscriber, :role, :charge
+
   # attr_accessible :title, :body
-  validates_presence_of :username, :email
-  validates_uniqueness_of :username, :email
 
   #upon authentication, subscriber status is checked
   Warden::Manager.after_authentication do |user,auth,opts|
@@ -28,21 +27,30 @@ class User < ActiveRecord::Base
     end
   end
 
-  #return an array of Role instances for a user. Parameter is one of the three status string values.
-  def user_role_instances(association)
-    user, roles = self, []
-    roles = lambda { |state| Role.joins(:page).where(:status => state, :user_id => user.id) }.call(association)
+#  def display_role(page)
+#    role = Role.where(:user_id => self.id, :page_id => page.id).first.status
+# end
+  def lambda_page
+    l = lambda { |state, user| Role.joins(:page).where(:status => state, :user_id => user.id) }
   end
 
-  #return Page instances that user is belongs to via role supplied in argument
-  def user_page_instances(association)
-    user, roles = self, []
-    roles = user.user_role_instances(association).collect do |instance|
-      Page.find_by_id(instance.page_id)
-    end
+  #returns array of Role instances for page with owner status
+  def owners
+    lambda_page.call('owner', self)
   end
 
-  def display_role(page)
-    role = Role.where(:user_id => self.id, :page_id => page.id).first.status
+  #returns array of Role instances for page with collaborator status
+  def collaborators
+    lambda_page.call('collaborator', self)
   end
+
+  #returns array of Role instances for page with viewer status
+  def viewers
+    lambda_page.call('viewer', self)
+  end
+
+  validates :username, length: { minimum:6 }, presence: true, uniqueness: true
+  validates_presence_of :email
+  validates_uniqueness_of :email
+
 end
