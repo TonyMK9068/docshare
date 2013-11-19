@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+  respond_to :html, :js
 
   def find_user(input)
     if  User.find_by_email(input)

@@ -4,6 +4,8 @@ class Role < ActiveRecord::Base
 
   attr_accessible :status, :user_id, :page_id
   validates_uniqueness_of :status, scope: [:page_id, :user_id]
+  validates :status, inclusion: { in: %w(owner contributor viewer),
+    message: "Invalid role" }
 end
 
 class Array
