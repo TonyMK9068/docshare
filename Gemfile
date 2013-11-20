@@ -11,6 +11,7 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'brakeman', :require => false
 end
 
 group :development, :test do
@@ -21,6 +22,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'simplecov'
+
 end
 
 group :assets do

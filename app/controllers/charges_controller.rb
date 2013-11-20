@@ -1,17 +1,5 @@
 class ChargesController < ApplicationController
-  
-####### helper methods ######
-  def create_charge(customer)
-    payment = Stripe::Charge.create(
-    :amount => 499,
-    :currency => "usd",
-    :description => "Charge for DocShare subscrition",
-    :customer => customer.id )
-  end
 
-  def create_customer(token)
-    customer = Stripe::Customer.create(:card  => token )
-  end
 
 ######controller actions ######
 
@@ -55,5 +43,20 @@ class ChargesController < ApplicationController
       redirect_to '/pages'
     end
   end
+  
+####### helper methods ######
 
+  private
+  
+  def create_charge(customer)
+    payment = Stripe::Charge.create(
+    :amount => 499,
+    :currency => "usd",
+    :description => "Charge for DocShare subscrition",
+    :customer => customer.id )
+  end
+
+  def create_customer(token)
+    customer = Stripe::Customer.create(:card  => token )
+  end
 end

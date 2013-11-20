@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :username, :subscriber, :role,
-                  :charge
+                  :remember_me, :username, :subscriber, :charge
 
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable

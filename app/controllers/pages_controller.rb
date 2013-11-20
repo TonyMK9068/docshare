@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
 
+
   def index
     @pages = current_user.pages
     authorize! :read, Page, message: "You must be the account owner to view page index"
@@ -17,7 +18,7 @@ class PagesController < ApplicationController
     if @page.save
       @page.set_owner(current_user)
       flash[:notice] = "Page created successfully"
-      redirect_to @page
+      redirect_to pages_path
     else
       flash[:error] = "Error saving page. Please try again later"
       render :new

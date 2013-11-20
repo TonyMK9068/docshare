@@ -1,6 +1,6 @@
 class Page < ActiveRecord::Base
   extend FriendlyId
-  attr_accessible :body, :public, :title, :user, :role, :slug
+  attr_accessible :body, :public, :title, :user, :slug
 
   friendly_id :title, :use => :slugged
   has_paper_trail :only => [:body => Proc.new { |obj| !obj.body.blank? } ], :on => [:update, :destroy]
@@ -29,14 +29,19 @@ class Page < ActiveRecord::Base
 
   # creates an owner role for the user provided in by the parameter
   # used in page controller to set owner attribute for user creating a new page
-  def set_owner(user)
-    role = Role.create(:page_id => self.id, :user_id => user.id, :status => 'owner')
-  end
+
 
   def number_of_versions
     self.versions.index.count
   end
 
+
+
+
+  def set_owner(user)
+    role = Role.create(:page_id => self.id, :user_id => user.id, :status => 'owner')
+  end
+  
   private
 
   validates_presence_of :slug
