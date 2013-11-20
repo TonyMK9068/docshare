@@ -4,7 +4,7 @@ Feature: Users are able to sign in and out
   I want to be able to login and logout
 
   Scenario: User decides to sign out
-  Given I am logged in
+  Given I am logged in with a standard account
   When I log out
   Then I should see 'Signed out successfully.'
 
@@ -14,11 +14,11 @@ Feature: Users are able to sign in and out
   Then I should see 'Signed in successfully.'
 
   Scenario: User decides to sign out
-  Given I am logged in
+  Given I am logged in with a standard account
   When I log out
   Then I should see 'Signed out successfully.'
 
   Scenario: User decides to sign out
-  Given I am logged in
+  Given I am logged in with a standard account
   When I log out
   Then I should be redirected to the home page

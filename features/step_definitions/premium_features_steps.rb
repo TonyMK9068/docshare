@@ -1,37 +1,36 @@
 Given /^I have a page that is public$/ do
   create_page
+  @page
 end
 
 Given /^I have a page that is private$/ do
-  Page.destroy_all
-  page = Page.new(title: "hello world hello world", 
-                          body: "hello test testtest test test test test test",
-                          public: false)
-  page.save!
+  @page = Page.new(title: "hello world hello world", body: "hello test testtest test test test test test", public: false, slug: "hello-world-hello-world")
+  role = Role.create(page_id: 1, user_id: 1, status: 'owner')
+  @page.save!
 end
 
-When /^I edit the page$/ do
+When /^I am at the edit page view$/ do
   visit(edit_page_path(@page))
-  page.has_content?('Edit content or settings for:')
+  current_path.should == edit_page_path(@page)
 end
 
-Then /^I can set it to private$/ do
-  
-  click_button("Page Settings", visible: true)
-  page.has_content?('Change privacy below:')
+Then /^I can select Page Settings$/ do
+  page.has_button? "Page Settings"
 end
 
-Then /^I can set it to public$/ do
-  click_button('Page Settings', visible: true)
-  page.has_content?('Change privacy below:')
-end
+#Then /^I can set it to private$/ do
+#  page.has_content?('Change privacy below:')
+#end
 
-Then /^I can add collaborators$/ do
-  click_button('Page Settings', visible: true)
-  page.has_button?('Add Collaborator')
-end
+#Then /^I can set it to public$/ do
+#  page.has_content?('Change privacy below:')
+#end
 
-Then /^I can authorize users that may view it$/ do
-  click_on('Page Settings')
-  page.has_button?('Add Viewer')
-end
+#Then /^I can add collaborators$/ do
+#  page.has_button?('Add Collaborator')
+#end
+
+#Then /^I can authorize users that may view it$/ do
+#  page.has_button?('Add Viewer')
+#end
+

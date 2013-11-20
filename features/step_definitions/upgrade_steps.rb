@@ -8,9 +8,8 @@ Given /^I have a credit card$/ do
 end
 
 When /^I upgrade to a premium account$/ do
-  
-  click_button 'account'
-  click_button 'button.stripe-button-el'
+  visit edit_user_registration_path
+  click_on('Pay with Card')
   fill_in 'Card number', with: '4242424242424242'
   fill_in 'Expires', with: '04/15'
   fill_in 'Name on card', with: 'Some name'
@@ -20,16 +19,16 @@ end
 
 When /^I enter valid credit card information$/ do
   visit edit_user_registration_path
-  click_button 'stripe-button'
-  fill_in 'Card number', with: @card[:paymentNumber]
-  fill_in 'Expires', with: @card[:paymentExpiry]
-  fill_in 'Name on card', with: @card[:paymentName]
-  fill_in 'Card code', with: @card[:paymentCVC]
+  click_on('button.stripe-button-el')
+  fill_in 'Card number', with: '4242424242424242'
+  fill_in 'Expires', with: '07/14'
+  fill_in 'Name on card', with: 'test user'
+  fill_in 'Card code', with: '456'
   click_button 'Pay $4.99'
 end
 
 When /^I am not a premium user$/ do
-  visit pages_path(@pages = @user.pages)
+  visit pages_path(pages = user.pages)
   page.has_no_css?('Subscription added successfully.')
 end
 
@@ -42,9 +41,6 @@ Then /^I can create private pages$/ do
   page.has_button?('page_public_true')
 end
 
-Given /^I do not have a premium account$/ do
-  @user = create_user
-end
 
 Then /^I should have access to premium features$/ do
   page.has_content?('Subscription added successfully.')

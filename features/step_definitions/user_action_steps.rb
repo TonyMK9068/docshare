@@ -1,15 +1,15 @@
-Given /^I am logged in$/ do
-  visit root_path
+Given /^I am logged in with a standard account$/ do
   create_user
+  visit '/users/sign_in'
   sign_in
   click_link('home')
-  page.has_link?('account', visible: true) 
 end
 
 Given /^I am logged in with a premium account$/ do
-  visit root_path
   create_subscriber
+  visit '/users/sign_in'
   sign_in
+  click_link('home')
 end
 
 Given /^I visit the new user registration page$/ do
@@ -18,14 +18,15 @@ Given /^I visit the new user registration page$/ do
 end
 
 Given /^I am not signed in$/ do
-  create_user
+  current_user = create_user
   visit root_path
-  page.has_link?('account', visible: false)
+  page.has_link?('account')
 end
 
 Given /^I am not registered$/ do
-  @user = create_visitor
+  current_user = create_visitor
 end
+
 When /^I input valid credentials$/ do
   fill_sign_up_form
 end
@@ -44,41 +45,42 @@ When /^I log out$/ do
 end
 
 When /^I sign in$/ do
+    visit '/users/sign_in'
   sign_in
 end
 
 When /^I register without entering a username$/ do
-  fill_in "user_email", :with => @user[:email]
-  fill_in "user_password", :with => @user[:password]
-  fill_in "user_password_confirmation", :with => @user[:password_confirmation]
+  fill_in "user_email", :with => 'member@example.com'
+  fill_in "user_password", :with => 'helloworld'
+  fill_in "user_password_confirmation", :with => 'helloworld'
   click_button 'Sign up'
 end
 
 When /^I register without entering a password$/ do
-  fill_in "user_username", :with => @user[:username]
-  fill_in "user_email", :with => @user[:email]
-  fill_in "user_password_confirmation", :with => @user[:password_confirmation]
+  fill_in "user_username", :with => 'testmember'
+  fill_in "user_email", :with => 'member@example.com'
+  fill_in "user_password_confirmation", :with => 'helloworld'
   click_button 'Sign up'
 end
 
 When /^I register without entering a password confirmation$/ do
-  fill_in "user_username", :with => @user[:username]
-  fill_in "user_email", :with => @user[:email]
-  fill_in "user_password", :with => @user[:password]
+  fill_in "user_username", :with => 'testmember'
+  fill_in "user_email", :with => 'member@example.com'
+  fill_in "user_password", :with => 'helloworld'
   click_button 'Sign up'
 end
 
 When /^I register without entering an email$/ do
-  fill_in "user_username", :with => @user[:username]
-  fill_in "user_password", :with => @user[:password]
-  fill_in "user_password_confirmation", :with => @user[:password_confirmation]
+  fill_in "user_username", :with => 'testmember'
+  fill_in "user_password", :with => 'helloworld'
+  fill_in "user_password_confirmation", :with => 'helloworld'
   click_button 'Sign up'
 end
 
 When /^I register with different password password_confirmation values$/ do
-  fill_in "user_username", :with => @user[:username]
-  fill_in "user_email", :with => @user[:email]
-  fill_in "user_password", :with => @user[:password]
+  fill_in "user_username", :with => 'testmember'
+  fill_in "user_email", :with => 'member@example.com'
+  fill_in "user_password", :with => 'helloworld'
   fill_in "user_password_confirmation", :with => 'wrongentry'
   click_button 'Sign up'
 end

@@ -1,6 +1,6 @@
 module Helper
   def create_visitor
-    User.destroy_all
+
     @user = User.new(
       username: 'testmember', 
       email:    'member@example.com', 
@@ -9,7 +9,7 @@ module Helper
   end
 
   def create_user
-    User.destroy_all
+    
     @user = User.new(
       username: 'testmember', 
       email:    'member@example.com', 
@@ -21,7 +21,7 @@ module Helper
 
 
   def create_subscriber
-          User.destroy_all
+
     @user = User.new(
       username: 'testmember', 
       email:    'member@example.com', 
@@ -29,23 +29,24 @@ module Helper
       password_confirmation: 'helloworld',
       subscriber: true)
     @user.skip_confirmation!
-    @user.save!  
+    @user.save!
   end
 
   def fill_sign_up_form
-    fill_in "user_username", :with => '#{@user[:username]}'
-    fill_in "user_email", :with => '#{@user[:email]}'
-    fill_in "user_password", :with => '#{@user[:password]}'
-    fill_in "user_password_confirmation", :with => '#{@user[:password_confirmation]}'
+    fill_in "user_username", :with => 'testmember'
+    fill_in "user_email", :with => 'member@example.com'
+    fill_in "user_password", :with => 'helloworld'
+    fill_in "user_password_confirmation", :with => 'helloworld'
     click_button 'Sign up'
   end
 
   def sign_in
-    visit new_user_session_path
-    fill_in("user_email", :with => @user[:email])
-    fill_in("user_password", :with => @user[:password])
-    click_button 'Log In'
-
+    within("form#new_user") do
+    fill_in "user_email", :with => User.find(1).email
+    fill_in "user_password", :with => 'helloworld'
+  end
+    click_on 'Log In'
+    page.has_text?('Signed in successfully.')
   end
 
   def logout
@@ -54,13 +55,13 @@ module Helper
   end
 
   def create_page
-  Page.destroy_all
-  page = @user.pages.build(title: "hello world hello world", body: "hello test testtest test test test test test")
-  page.save!
+    @page = Page.new(title: "hello world hello world", body: "hello test testtest test test test test test", slug: "hello-world-hello-world")
+  role = Role.create(page_id: 1, user_id: 1, status: 'owner')
+    @page.save!
   end
 
   def credit_card
-    @card ||= { paymentNumber: '4242424242424242', paymentCVC: '456', paymentName: 'Test User', paymentExpiry: '07 / 14' }
+    card ||= { paymentNumber: '4242424242424242', paymentCVC: '456', paymentName: 'Test User', paymentExpiry: '07 / 14' }
   end
 end
 

@@ -2,32 +2,14 @@ Feature: In order to offer incentives for visitors to subscribe
   As a subscriber
   I should have special privileges
 
-  Scenario: User sets page to private
+  Scenario: Subscriber wants to change page settings for private page
   Given I am logged in with a premium account
     And I have a page that is public
-  When I edit the page
-  Then I can set it to private
+  When I am at the edit page view
+  Then I can select Page Settings
 
-  Scenario: User sets page to public
+  Scenario: Subscriber wants to change page settings for public page
   Given I am logged in with a premium account
     And I have a page that is private
-  When I edit the page
-  Then I can set it to public
-
-  Scenario: User adds collaborators
-  Given I am logged in with a premium account
-    And I have a page that is private
-  When I edit the page
-  Then I can add collaborators
-
-  Scenario: User adds collaborators
-  Given I am logged in with a premium account
-    And I have a page that is public
-  When I edit the page
-  Then I can add collaborators
-
-  Scenario: User authorizes others to view private page
-  Given I am logged in with a premium account
-    And I have a page that is private
-  When I edit the page
-  Then I can authorize users that may view it
+  When I am at the edit page view
+  Then I can select Page Settings
