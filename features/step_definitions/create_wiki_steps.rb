@@ -10,9 +10,10 @@ Given /^I have filled in all information for new page$/ do
     page.fill_in "page_body", :with => "test body test body test test"
   end
 end
-Given /^I have filled in the (.+) but not the (.+)$/ do |present, missing|
+
+Given /^I have filled in the ([a-zA-z]{3,6}) but not the ([a-zA-z]{3,6})$/ do |completed, blank|
   visit '/pages/new'
-  fill_in(present, :with => 'This test should fail.')
+  fill_in("#{'page_' + completed}", :with => 'This test should fail.')
 end
 
 When /^I click 'New Page'$/ do

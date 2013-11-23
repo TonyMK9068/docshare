@@ -85,6 +85,10 @@ When /^I register with different password password_confirmation values$/ do
   click_button 'Sign up'
 end
 
+When /^I visit the website$/ do
+  visit root_path
+end
+
 Then /^I should see instructions to confirm account$/ do
   page.has_text?('A message with a confirmation link has been sent to your email address. Please open the link to activate your account.')
 end
@@ -107,4 +111,13 @@ end
 
 Then /^I should be redirected to the home page$/ do
   page.has_text? 'Welcome to DocShare'
+end
+
+
+Then /^I should see the (.*) link$/ do |selector|
+  page.has_content?(selector, visible: true)
+end
+
+Then /^I should not see the (.*) link$/ do |selector|
+  page.has_content?(selector, visible: false)
 end

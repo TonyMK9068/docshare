@@ -15,12 +15,12 @@ Feature: In order to provide the user with a service
 
   Scenario: User attempts to save without entering title
   Given I am logged in with a standard account
-    And I have filled in the page_body but not the page_title
+    And I have filled in the body but not the title
   When I click 'Save'
   Then I should see an error
 
   Scenario: User attempts to save without entering body
   Given I am logged in with a standard account
-    And I have filled in the page_title but not the page_body
+    And I have filled in the title but not the body
   When I click 'Save'
   Then I should see an error
