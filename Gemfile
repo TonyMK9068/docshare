@@ -43,3 +43,4 @@ gem 'cancan'
 gem 'faker'
 gem "friendly_id", "~> 4.0.10"
 gem 'paper_trail', '>= 3.0.0.rc1'
+gem "ruby-hmac"

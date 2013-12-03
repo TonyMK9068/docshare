@@ -199,6 +199,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-hmac (0.4.0)
     ruby2ruby (2.0.6)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -270,6 +271,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   redcarpet
   rspec-rails
+  ruby-hmac
   sass-rails (~> 3.2.3)
   simplecov
   skeleton-rails
