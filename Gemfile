@@ -16,7 +16,6 @@ end
 
 group :development, :test do
   gem 'cucumber-rails', :require => false
-  # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'guard-rspec'
@@ -31,6 +30,7 @@ group :assets do
   gem 'skeleton-rails'
   gem 'uglifier', '>= 1.0.3'
 end
+
 
 gem 'jquery-rails'
 gem 'thin'

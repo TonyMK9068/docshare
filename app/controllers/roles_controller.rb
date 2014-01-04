@@ -23,11 +23,11 @@ class RolesController < ApplicationController
       @status = 'viewer'
     end
 
-  @role = @user.roles.build(:page_id => @page.id, :status => @status)
-  if @role.save
-      redirect_to :back, notice: "User granted access."
+    @role = @user.roles.build(:page_id => @page.id, :status => @status)
+    if @role.save
+      redirect_to :back, notice: 'User granted access.'
     else
-      flash[:error] = "Error granting access. Please try again later."
+      flash[:error] = 'Error granting access. Please try again later.'
       render 'pages/index'
     end
   end
@@ -35,9 +35,9 @@ class RolesController < ApplicationController
   def destroy
     @role = Page.find(params[:id])
     if @role.destroy
-      redirect_to :back, notice: "Access revoked successfully."
+      redirect_to :back, notice: 'Access revoked successfully.'
     else
-      flash[:error] = "Error revoking access. Please try again."
+      flash[:error] = 'Error revoking access. Please try again.'
       render 'pages/index'
     end
   end

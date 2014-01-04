@@ -9,11 +9,11 @@ class User < ActiveRecord::Base
   has_many :pages,  through: :roles
   has_many :charges
 
-  # Setup accessible (or protected) attributes for your model
+  validates :username, length: { minimum:6 }, presence: true, uniqueness: true
+  validates_presence_of :email
+  validates_uniqueness_of :email
 
-  # attr_accessible :title, :body
-
-  #upon authentication, subscriber status is checked
+  # on authentication, subscriber status is checked
   Warden::Manager.after_authentication do |user,auth,opts|
     if user.charges.length > 0
       id = user.charges.last.customer_id
@@ -26,9 +26,6 @@ class User < ActiveRecord::Base
     end
   end
 
-#  def display_role(page)
-#    role = Role.where(:user_id => self.id, :page_id => page.id).first.status
-# end
   def lambda_page
     l = lambda { |state, user| Role.joins(:page).where(:status => state, :user_id => user.id) }
   end
@@ -47,9 +44,4 @@ class User < ActiveRecord::Base
   def viewers
     lambda_page.call('viewer', self)
   end
-
-  validates :username, length: { minimum:6 }, presence: true, uniqueness: true
-  validates_presence_of :email
-  validates_uniqueness_of :email
-
 end

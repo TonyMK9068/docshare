@@ -53,7 +53,7 @@ $(document).ready(function(){
       callback(null, result.toString());
         });
           },
-          tables: true,
+      tables: true,
       breaks: false,
       pedantic: false,
       sanitize: true,

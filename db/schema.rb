@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(:version => 20131114162255) do
   add_index "pages", ["slug"], :name => "index_pages_on_slug"
   add_index "pages", ["user_id"], :name => "index_pages_on_user_id"
 
-  create_table "roles", :force => true do |t|
+  create_table "roles", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "page_id"
     t.string   "status"
