@@ -5,7 +5,7 @@ end
 
 Given /^I have filled in all information for new page$/ do
   visit '/pages/new'
-  within("form#new_page") do
+  within(:css, "form#new_page") do
     page.fill_in "page_title", :with => "hello test world"
     page.fill_in "page_body", :with => "test body test body test test"
   end

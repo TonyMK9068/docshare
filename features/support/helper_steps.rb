@@ -2,19 +2,19 @@ module Helper
   def create_visitor
 
     @user = User.new(
-      username: 'testmember', 
-      email:    'member@example.com', 
-      password: 'helloworld',
-      password_confirmation: 'helloworld')
+      username: 'testermember', 
+      email:    'tester@yahoo.com', 
+      password: 'Helloworld2',
+      password_confirmation: 'Helloworld2')
   end
 
   def create_user
     
     @user = User.new(
       username: 'testmember', 
-      email:    'member@example.com', 
-      password: 'helloworld',
-      password_confirmation: 'helloworld')
+      email:    'member@yahoo.com', 
+      password: 'Helloworld2',
+      password_confirmation: 'Helloworld2')
     @user.skip_confirmation!
     @user.save!
   end
@@ -23,10 +23,10 @@ module Helper
   def create_subscriber
 
     @user = User.new(
-      username: 'testmember', 
-      email:    'member@example.com', 
-      password: 'helloworld',
-      password_confirmation: 'helloworld',
+      username: 'testermember', 
+      email:    'member@yahoo.com', 
+      password: 'Helloworld2',
+      password_confirmation: 'Helloworld2',
       subscriber: true)
     @user.skip_confirmation!
     @user.save!
