@@ -1,17 +1,17 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :username, :subscriber, :charge
+                  :remember_me, :username, :subscriber
 
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable, :recoverable, 
+         :rememberable, :trackable, :secure_validatable, :session_limitable
 
   has_many :roles, dependent: :destroy
   has_many :pages,  through: :roles
   has_many :charges
-
-  validates :username, length: { minimum:6 }, presence: true, uniqueness: true
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  
+  validates :email, :email => true
+  validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
+  validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
 
   # on authentication, subscriber status is checked
   Warden::Manager.after_authentication do |user,auth,opts|
@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
       end
     end
   end
-
+  
+  # take these lambdas out
   def lambda_page
     l = lambda { |state, user| Role.joins(:page).where(:status => state, :user_id => user.id) }
   end

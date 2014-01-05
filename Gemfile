@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
-
 gem 'rails', '3.2.13'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :production do
   gem 'pg'
@@ -21,7 +17,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'simplecov'
-
 end
 
 group :assets do
@@ -30,7 +25,6 @@ group :assets do
   gem 'skeleton-rails'
   gem 'uglifier', '>= 1.0.3'
 end
-
 
 gem 'jquery-rails'
 gem 'thin'
@@ -43,4 +37,5 @@ gem 'cancan'
 gem 'faker'
 gem "friendly_id", "~> 4.0.10"
 gem 'paper_trail', '>= 3.0.0.rc1'
-gem "ruby-hmac"
+gem 'devise_security_extension'
+gem 'rails_email_validator'
