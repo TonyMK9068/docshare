@@ -2,10 +2,12 @@ class RolesController < ApplicationController
   respond_to :html, :js
 
   def find_user(input)
-    if  User.find_by_email(input)
+    if User.find_by_email(input)
       @user = User.find_by_email(input)
+
     elsif User.find_by_username(input)
       @user = User.find_by_username(input)
+
     else
       @user = nil
     end

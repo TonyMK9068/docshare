@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation,
-                  :remember_me, :username, :subscriber
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :subscriber
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, 
          :rememberable, :trackable, :secure_validatable, :session_limitable
@@ -13,8 +12,16 @@ class User < ActiveRecord::Base
   validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
   validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
   
-  def pages_with_role(status)
-    self.pages.all.collect { |page| Role.joins(:user).where(status: status, page_id: page.id) }
+  def pages_owned
+    self.pages.each { |page| page.roles.owners.all }
+  end
+  
+  def pages_collaborating_on
+    self.pages.each { |page| page.roles.collaborators.all }
+  end
+  
+  def pages_viewable
+    self.pages.each { |page| page.roles.viewers.all }
   end
 
   # on authentication, subscriber status is checked

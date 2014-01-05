@@ -5,16 +5,16 @@ class Page < ActiveRecord::Base
   attr_accessible :body, :public, :title, :user_id, :slug
   
   has_paper_trail only: [ body: Proc.new { |obj| !obj.body.blank? } ], on: [:update, :destroy]
+  
   has_many :roles, dependent: :destroy
   has_many :users, through: :roles
+  has_many :roles
   
   validates_presence_of :slug
   validates :title, length: { minimum:6 }, presence: true
   validates :body, length: { minimum:15 }, presence: true
   
-  after_save :set_owner
-  
-  # scope :users_with_role, lambda { |state| Role.joins(:user).where(:status => state, :page_id => self.id) }
+  after_create :set_owner
 
   def number_of_versions
     self.versions.index.count
@@ -31,7 +31,8 @@ class Page < ActiveRecord::Base
   protected
 
   def set_owner
-    self.roles.build(user_id: self.user_id, status: 'owner')
+    role = self.roles.build(user_id: self.user_id, status: 'owner')
+    role.save
   end
 
 end

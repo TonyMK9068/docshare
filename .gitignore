@@ -9,6 +9,7 @@
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/seeds
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
@@ -19,3 +20,11 @@
 
 /log
 /coverage
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes

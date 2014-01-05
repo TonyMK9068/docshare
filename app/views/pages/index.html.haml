@@ -1,0 +1,75 @@
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+  
+.sixteen.columns
+  %h1.center
+    Hello #{current_user.username}
+.eight.columns
+  %h3
+    %strong You have created #{pluralize(current_user.pages_owned.count, 'page')}!
+  %p Select a page from below to view or edit:
+  
+  / User created table
+  %table.user-created-tables
+    %thead
+      %tr
+        %th Title
+        %th URL
+        %th Date Created
+        %th Last Update
+        %th Public?
+        %th Delete?
+    %tbody
+      - current_user.pages_owned.each do |page|
+        %tr
+          %td= page.title
+          %td= link_to page_path(page), page
+          %td= format_local_time(page.created_at)
+          %td= format_local_time(page.updated_at)
+          %td= page.public?
+          %td= link_to 'x',page, method: :delete, class: 'delete-button'
+  %br
+  
+  / Is a collaborator of.....
+  %h5
+    %strong Pages you've been added as a collaborator:
+  - if current_user.pages_collaborating_on.count < 1
+    %p Sorry, no users have added you
+  - else
+    %table
+      %thead
+        %tr
+          %th Title
+          %th Link
+          %th Last Updated
+          %th Private?
+      %tbody
+        - current_user.pages_collaborating_on.each do |page|
+          %tr
+            %td= page.title
+            %td= link_to 'View page', page
+            %td= page.updated_at.localtime.strftime("%b %d, %Y")
+            %td= page.public?
+            
+/ subscriber content
+.five.columns.offset-by-one
+  %br
+
+  - if current_user.subscriber
+    %h4.center
+      Subscription Status:
+      %strong Active
+    %h6.center Thank you for subscribing!
+
+  - else
+    %h3.center Upgrade Account?
+    = form_tag charges_path do
+      %article
+        %label.amount
+          %p As a subscriber you're allowed access to privacy controls and given the ability to add collaborators to each of your pages.
+          %p Subscription is : $4.99 billed due monthly
+
+      %script.stripe-button{ "data-amount" => "499", "data-currency" => "usd",
+                            "data-description" => "Become a subscriber at DocShare",
+                            "data-key" => Rails.configuration.stripe[:publishable_key],
+                            "data-name" => "DocShare", src: "https://checkout.stripe.com/v2/checkout.js" }

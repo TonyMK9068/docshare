@@ -1,13 +1,14 @@
 class Role < ActiveRecord::Base
+  attr_accessible :status, :page_id, :user_id
+  
   belongs_to :page
   belongs_to :user
 
-  attr_accessible :status, :page_id, :user_id
   validates_uniqueness_of :status, scope: [:page_id, :user_id]
-  validates :status, inclusion: %w(owner contributor viewer)
+  validates :status, inclusion: %w(owner collaborator viewer)
   
   scope :owners, where(status: 'owner')
-  scope :contributors, where(status: 'contributor')
+  scope :collaborators, where(status: 'collaborator')
   scope :viewers, where(status: 'viewer')
 end
 
