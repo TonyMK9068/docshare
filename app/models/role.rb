@@ -5,7 +5,7 @@ class Role < ActiveRecord::Base
   belongs_to :user
 
   validates_uniqueness_of :status, scope: [:page_id, :user_id]
-  validates :status, inclusion: %w(owner collaborator viewer)
+  validates :status, inclusion: %w(owner collaborator viewer), allow_nil: true
   
   scope :owners, where(status: 'owner')
   scope :collaborators, where(status: 'collaborator')

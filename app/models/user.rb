@@ -13,15 +13,21 @@ class User < ActiveRecord::Base
   validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
   
   def pages_owned
-    self.pages.each { |page| page.roles.owners.all }
+    Role.owners.joins(:page).where(user_id: self.id).all.collect do |role|
+      Page.find role.page_id
+    end
   end
   
   def pages_collaborating_on
-    self.pages.each { |page| page.roles.collaborators.all }
+    Role.collaborators.joins(:page).where(user_id: self.id).all.collect do |role|
+      Page.find role.page_id
+    end
   end
   
   def pages_viewable
-    self.pages.each { |page| page.roles.viewers.all }
+    Role.viewers.joins(:page).where(user_id: self.id).all.collect do |role|
+      Page.find role.page_id
+    end
   end
 
   # on authentication, subscriber status is checked

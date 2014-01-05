@@ -26,7 +26,7 @@
           %td= link_to page_path(page), page
           %td= format_local_time(page.created_at)
           %td= format_local_time(page.updated_at)
-          %td= page.public?
+          %td= page.is_public?
           %td= link_to 'x',page, method: :delete, class: 'delete-button'
   %br
   
@@ -49,7 +49,7 @@
             %td= page.title
             %td= link_to 'View page', page
             %td= page.updated_at.localtime.strftime("%b %d, %Y")
-            %td= page.public?
+            %td= page.is_private?
             
 / subscriber content
 .five.columns.offset-by-one
