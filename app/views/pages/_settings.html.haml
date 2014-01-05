@@ -36,7 +36,7 @@
                 %tr
                   %td= viewer.username
                   %td= viewer.email
-                  %td= link_to 'x', '#', :method => :delete
+                  %td= link_to 'x', page_role_path(viewer), :method => :delete
 
       - if page.collaborators_assigned?
         %h5.center Collaborators
@@ -52,4 +52,4 @@
                 %tr
                   %td= collaborator.username
                   %td= collaborator.email
-                  %td= link_to 'x', '#', :method => :delete
+                  %td= link_to 'x', page_role_path(collaborator), :method => :delete

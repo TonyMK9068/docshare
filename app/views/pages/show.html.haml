@@ -10,8 +10,8 @@
   - if can? :manage, @page
     = link_to('Delete Page', @page, method: :delete, class: 'button')
 
-.ten.columns.off-set-by-one.output-display.show-apge
-  = markdown(@page.body)
+.ten.columns.off-set-by-one.output-display.show-page
+  = @page.body
 
 .ten.columns.versions
   Page Versions
@@ -28,7 +28,7 @@
         - version = @page.versions[(n + 1) * -1]
         %tr
           %td= link_to version.reify.title, page_version_path(@page, version)
-          %td= version.created_at.localtime.strftime("%b %d, %Y %l:%M:%S %p")
+          %td= format_local_date_time(version.created_at)
           %td= version.originator.try(:username)
           %td= version.reify.is_public?
           %td No. #{ n + 1 }
