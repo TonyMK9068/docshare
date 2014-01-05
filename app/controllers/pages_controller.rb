@@ -12,8 +12,7 @@ class PagesController < ApplicationController
 
   def create
     @user = current_user
-    @page = Page.new(params[:page])
-    @page.user_id = @user.id
+    @page = @user.pages.build(params[:page])
 
     authorize! :create, Page, message: 'You need to be signed up to do that'
     if @page.save

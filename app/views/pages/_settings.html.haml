@@ -1,0 +1,55 @@
+.nine.columns
+  .viewers-privacy.six.columns
+    Current page is set as:
+    %strong= page.is_public? ? 'Public' : 'Private'
+    %br
+    %small Change privacy below:
+    
+    = form_for page, method: :put do |f|
+      = f.radio_button :public, false, checked: page.public  == false
+      %span : Private
+      = f.radio_button :public, true, checked: page.public == true
+      %span : Public
+      %br
+      = f.submit 'Update Privacy', id: 'privacy-btn'
+
+  %hr
+  - if page.is_private?
+    .nine.columns
+      .viewer-form.four.columns
+        = render 'viewers/viewers_form', page: page
+      .collab-form.four.columns
+        = render 'collaborators/collaborator', page: page
+
+    .nine.columns
+      - if page.viewers_assigned?
+        .table.four.columns
+          %h5.center Viewers
+          %table
+            %thead
+              %tr
+                %th Username
+                %th Email
+                %th Remove?
+            %tbody
+              - page.viewers.each do |viewer|
+                %tr
+                  %td= viewer.username
+                  %td= viewer.email
+                  %td= link_to 'x', '#', :method => :delete
+
+      - if page.collaborators_assigned?
+        %h5.center Collaborators
+        .table.four.columns
+          %table
+            %thead
+              %tr
+                %th Username
+                %th Email
+                %th Remove?
+            %tbody
+              - page.collaborators.each do |collaborator|
+                %tr
+                  %td= collaborator.username
+                  %td= collaborator.email
+                  %td= link_to 'x', '#', :method => :delete

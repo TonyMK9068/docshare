@@ -1,0 +1,34 @@
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+
+.sixteen.columns.center
+  %h2= @page.title
+
+.three.columns
+  - if can? :update, @page
+    = link_to('Edit Page', edit_page_path, class: 'button')
+  - if can? :manage, @page
+    = link_to('Delete Page', @page, method: :delete, class: 'button')
+
+.ten.columns.off-set-by-one.output-display.show-apge
+  = markdown(@page.body)
+
+.ten.columns.versions
+  Page Versions
+  %table#version-table
+    %thead
+      %tr
+        %th Title (Click to view)
+        %th Date Created
+        %th Created By
+        %th Public?
+        %th Version Number
+    %tbody
+      - @page.number_of_versions.times do |n|
+        - version = @page.versions[(n + 1) * -1]
+        %tr
+          %td= link_to version.reify.title, page_version_path(@page, version)
+          %td= version.created_at.localtime.strftime("%b %d, %Y %l:%M:%S %p")
+          %td= version.originator.try(:username)
+          %td= version.reify.is_public?
+          %td No. #{ n + 1 }

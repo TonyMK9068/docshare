@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
       Page.find role.page_id
     end
   end
+  # find(version.originator.to_i).username
 
   # on authentication, subscriber status is checked
   Warden::Manager.after_authentication do |user,auth,opts|

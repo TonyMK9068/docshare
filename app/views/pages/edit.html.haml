@@ -1,0 +1,23 @@
+- content_for :head do
+  = stylesheet_link_tag 'pages'
+
+.ten.columns.offset-by-three
+  %row
+    %h2 Edit content or settings for: #{@page.title}
+
+.eight.columns.fixed-form
+  = form_for @page, :method => :put do |f|
+    = f.text_field :title, :value => @page.title
+    = f.text_area :body, :value => @page.body
+    = f.submit 'Update', class: 'new-page-button'
+
+.eight.columns.output-display
+  .overflow.marked-title
+  .overflow.marked-text
+
+- if (can? :manage, @page) && current_user.subscriber
+  = button_tag('Page Settings', class: 'page-settings')
+
+.js-collab-popup.hidden
+  .privacy-settings
+    = render 'settings', page: @page

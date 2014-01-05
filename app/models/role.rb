@@ -18,12 +18,4 @@ class Array
       self[index] = User.find_by_id(value[:user_id])
     end
   end
-
-  def return_pages
-    self.each_with_index do |value, index|
-      self[index] = Page.find_by_id(value[:page_id])
-    end
-  end
-
 end
-
