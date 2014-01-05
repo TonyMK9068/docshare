@@ -15,7 +15,6 @@ class PagesController < ApplicationController
     @page = @user.pages.build(params[:page])
     authorize! :create, Page, message: 'You need to be signed up to do that'
     if @page.save
-      @page.set_owner(current_user)
       flash[:notice] = 'Page created successfully'
       redirect_to pages_path
     else
@@ -27,7 +26,6 @@ class PagesController < ApplicationController
   def edit
     @page = Page.find(params[:id])
     authorize! :update, @page, message: 'Not authorized to edit this page'
-
   end
 
   def update

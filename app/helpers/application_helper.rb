@@ -4,6 +4,5 @@ module ApplicationHelper
 
     markitdown = Redcarpet::Markdown.new(renderer, autolink: true, fenced_code_blocks: true, tables: true, 
                                          strikethrough: true, underline: true, highlight: true, quote: true)
-    (markitdown.render(text)).html_safe
   end
 end

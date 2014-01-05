@@ -1,63 +1,64 @@
-require 'faker'
-
-rand(15..30).times do
-  password = Faker::Lorem.characters(10)
+n = 1
+8.times do
+  password = 'Password1'
+  
   u = User.new(
-    username: Faker::Name.name,
-    email: Faker::Internet.email,
+    username: Faker::Name.first_name + 'test',
+    email: "contact#{n}@anthonyjcorreia.com",
     password: password,
     password_confirmation: password
     )
   u.skip_confirmation!
-  u.save
+  u.save!
 
   rand(1..3).times do
-    p = u.pages.create(
+    p = u.pages.build(
       title: Faker::Lorem.words(rand(1..10)).join(" "), 
       body: Faker::Lorem.paragraphs(rand(1..4)).join("\n")
       )
-      # set the created_at to a time within the past year
-    p.update_attributes(:created_at, Time.now - rand(600..31536000))
+      p.save
   end
+  n += 1
 end
 
 user = User.new(
-  username: 'member', 
-  email:    'member@example.com', 
-  password: 'helloworld',
-  password_confirmation: 'helloworld'
+  username: 'test_member', 
+  email:    'member@anthonyjcorreia.com', 
+  password: 'Password1',
+  password_confirmation: 'Password1'
   )
 user.skip_confirmation!
 user.save
 
 user = User.new(
-  username: 'subscriber', 
-  email:    'subscriber@example.com', 
-  password: 'helloworld',
-  password_confirmation: 'helloworld',
+  username: 'subscriber1', 
+  email:    'subscriber@anthonyjcorreia.com', 
+  password: 'Password1',
+  password_confirmation: 'Password1',
   subscriber: true
   )
 user.skip_confirmation!
 user.save
 
 user = User.new(
-  username: 'test', 
-  email:    'test2@example.com', 
-  password: 'helloworld',
-  password_confirmation: 'helloworld'
+  username: 'subscriber2', 
+  email:    'test2@anthonyjcorreia.com', 
+  password: 'Password1',
+  password_confirmation: 'Password1',
+  subscriber: true
   )
 user.skip_confirmation!
 user.save
 
 user = User.new(
-  username: 'test2', 
-  email:    'test3@example.com', 
-  password: 'helloworld',
-  password_confirmation: 'helloworld'
+  username: 'subscriber3', 
+  email:    'test3@anthonyjcorreia.com', 
+  password: 'Password1',
+  password_confirmation: 'Password1',
+  subscriber: true
   )
 user.skip_confirmation!
 user.save
-
 
 puts "Seed finished"
 puts "#{User.count} users created"

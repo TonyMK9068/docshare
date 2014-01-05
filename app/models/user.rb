@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   validates :email, :email => true
   validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
   validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
+  
+  def pages_with_role(status)
+    self.pages.all.collect { |page| Role.joins(:user).where(status: status, page_id: page.id) }
+  end
 
   # on authentication, subscriber status is checked
   Warden::Manager.after_authentication do |user,auth,opts|
@@ -24,25 +28,5 @@ class User < ActiveRecord::Base
         user.update_attribute(:subscriber, false)
       end
     end
-  end
-  
-  # take these lambdas out
-  def lambda_page
-    l = lambda { |state, user| Role.joins(:page).where(:status => state, :user_id => user.id) }
-  end
-
-  #returns array of Role instances for page with owner status
-  def owners
-    lambda_page.call('owner', self)
-  end
-
-  #returns array of Role instances for page with collaborator status
-  def collaborators
-    lambda_page.call('collaborator', self)
-  end
-
-  #returns array of Role instances for page with viewer status
-  def viewers
-    lambda_page.call('viewer', self)
   end
 end

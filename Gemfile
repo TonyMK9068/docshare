@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.16'
 
 group :production do
   gem 'pg'
@@ -7,7 +7,6 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'brakeman', :require => false
 end
 
 group :development, :test do
@@ -20,7 +19,7 @@ group :development, :test do
 end
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 3.2.6'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'skeleton-rails'
   gem 'uglifier', '>= 1.0.3'

@@ -5,6 +5,10 @@ class Role < ActiveRecord::Base
   attr_accessible :status, :page_id, :user_id
   validates_uniqueness_of :status, scope: [:page_id, :user_id]
   validates :status, inclusion: %w(owner contributor viewer)
+  
+  scope :owners, where(status: 'owner')
+  scope :contributors, where(status: 'contributor')
+  scope :viewers, where(status: 'viewer')
 end
 
 class Array
