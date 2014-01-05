@@ -1,36 +1,23 @@
 class RolesController < ApplicationController
   respond_to :html, :js
 
-  def find_user(input)
-    if User.find_by_email(input)
-      @user = User.find_by_email(input)
-
-    elsif User.find_by_username(input)
-      @user = User.find_by_username(input)
-
-    else
-      @user = nil
-    end
-    @user
-  end
-
   def create
     @page = Page.find(params[:page_id])
-
-    if params[:collaborator]
-      find_user(params[:collaborator])
-      @status = 'collaborator'
-    else
-      find_user(params[:viewer])
-      @status = 'viewer'
-    end
-
-    @role = @user.roles.build(:page_id => @page.id, :status => @status)
-    if @role.save
-      redirect_to :back, notice: 'User granted access.'
-    else
-      flash[:error] = 'Error granting access. Please try again later.'
+    @status = Role.status_value(params)
+    
+    @user = User.find_user(params[:collaborator].presence || params[:viewer].presence)
+    
+    if @user.blank?
+      flash[:error] = 'User not found'
       render 'pages/index'
+    else 
+      @role = @user.roles.build(page_id: @page.id, status: @status)
+      if @role.save
+        redirect_to edit_page_path(@page), notice: 'User granted access.'
+      else
+        flash[:error] = 'Error granting access. Please try again later.'
+        render 'pages/index'
+      end
     end
   end
 

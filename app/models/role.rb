@@ -1,15 +1,19 @@
 class Role < ActiveRecord::Base
   attr_accessible :status, :page_id, :user_id
-  
+
   belongs_to :page
   belongs_to :user
 
   validates_uniqueness_of :status, scope: [:page_id, :user_id]
   validates :status, inclusion: %w(owner collaborator viewer), allow_nil: true
-  
+
   scope :owners, where(status: 'owner')
   scope :collaborators, where(status: 'collaborator')
   scope :viewers, where(status: 'viewer')
+
+  def self.status_value(input)
+    (input[:collaborator]).present? ? "collaborator" : "viewer"
+  end
 end
 
 class Array

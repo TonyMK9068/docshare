@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
+    # needs refactoring for peformance
     if user.created_at
       can [:create, :destroy], Charge, user_id: user.id
       can :create, Page, user_id: user.id

@@ -12,6 +12,14 @@ class User < ActiveRecord::Base
   validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
   validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
   
+  def self.with_attribute_value(name)
+    User.find_by_email(name) || User.find_by_username(name)
+  end
+  
+  def self.find_user(input)
+    User.with_attribute_value(input).presence
+  end
+
   def pages_owned
     Role.owners.joins(:page).where(user_id: self.id).all.collect do |role|
       Page.find role.page_id
@@ -29,7 +37,8 @@ class User < ActiveRecord::Base
       Page.find role.page_id
     end
   end
-  # find(version.originator.to_i).username
+
+  # todo: check for method for find(version.originator.to_i).username
 
   # on authentication, subscriber status is checked
   Warden::Manager.after_authentication do |user,auth,opts|
