@@ -5,7 +5,7 @@ class RolesController < ApplicationController
     @page = Page.find(params[:page_id])
     @status = Role.status_value(params)
     
-    @user = User.find_user(params[:collaborator].presence || params[:viewer].presence)
+    @user = User.find_user(params[:collaborator] || params[:viewer] || '') # if no user found assign value yhat will raise exception on #save
     
     if @user.blank?
       flash[:error] = 'User not found'

@@ -1,58 +1,36 @@
 class ChargesController < ApplicationController
-  
-  # move most logic to model
   def create
-    tokens = params[:stripeToken]
-    if current_user.charges.length == 0
-      @customer = create_customer(tokens)
-    else
-      @id = current_user.charges.first.customer_id
-      @customer = Stripe::Customer.retrieve(@id)
-    end
-    
-    @charge = current_user.charges.build(customer_id: @customer.id)
-    authorize! :create, Stripe::Charge, message: 'Not authorized to make payment'
-    if @charge.save
-      create_charge(@customer)
+    token = params[:stripeToken]
+    @user = current_user
+    @customer = Charge.retrieve_or_create_customer(token, @user)
+    @charge = @user.charges.build(customer_id: @customer.id)
+
+    authorize! :create, Charge, message: 'Not authorized to make payment'
+
+    if @charge.save && 
       @customer.update_subscription(plan: 'docshare-subscription', prorate: true)
       flash[:notice] = 'Subscription added successfully. Log back in for changes to take effect'
       redirect_to pages_path
     else
-      flash[:error] = 'Error making charge. Please try again.'
-      render root_path
+      flash[:error] = 'Charge not successful'
+      render '/'
     end
-  
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to pages_path
   end
 
   def destroy
+    @user = current_user
     @charge = Charge.find(params[:id])
-    @id = current_user.charges.last.customer_id
-    @customer = Stripe::Customer.retrieve(@id)
+    @customer = Charge.retreive_customer @user
+
     authorize! :destroy, @charge, message: 'You are not authorized to cancel this subscription.'
+
     @customer.cancel_subscription(at_period_end: true)
-    if @customer.subscription[:at_period_end] == true
+    if @customer.subscription[:canceled_at]
       flash[:notice] = 'Subscription canceled successfully'
       redirect_to '/pages'
     else
       flash[:error] = 'Error canceling subscription. Please try again.'
       redirect_to '/pages'
     end
-  end
-
-  private
-  
-  def create_charge(customer)
-    Stripe::Charge.create(
-    amount: 499,
-    currency: 'usd',
-    description: 'Charge for DocShare subscrition',
-    customer: customer.id )
-  end
-
-  def create_customer(token)
-    Stripe::Customer.create(card: token)
   end
 end

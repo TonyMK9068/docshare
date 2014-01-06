@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
   validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
   
+  def has_charges?
+    self.charges.count > 0
+  end
+  
   def self.with_attribute_value(name)
     User.find_by_email(name) || User.find_by_username(name)
   end
