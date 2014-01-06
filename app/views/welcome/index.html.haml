@@ -1,0 +1,23 @@
+- content_for :head do
+  = stylesheet_link_tag 'welcome'
+  = stylesheet_link_tag 'pages'
+  
+.center
+  %h1 Welcome to DocShare
+%div
+  %h5.text Your home for creating personalized wiki pages!
+%hr
+
+.eight.columns.fixed-form
+  = form_for @page do |f|
+    = f.text_field :title, :placeholder => "Title goes here..."
+    = f.text_area :body, :placeholder => "Content goes here..."
+    - if current_user
+      = f.submit 'Save', class: 'new-page-button', value: 'Save Page'
+    - else
+      #login_prompt
+        %h5 Log in to save or share
+
+.eight.columns.output-display
+  .overflow.marked-title
+  .overflow.marked-text
