@@ -1,4 +1,6 @@
 class ChargesController < ApplicationController
+  
+  # move most logic to model
   def create
     tokens = params[:stripeToken]
     if current_user.charges.length == 0

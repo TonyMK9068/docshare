@@ -33,17 +33,17 @@ module Helper
   end
 
   def fill_sign_up_form
-    fill_in "user_username", :with => 'testmember'
-    fill_in "user_email", :with => 'member@example.com'
-    fill_in "user_password", :with => 'helloworld'
-    fill_in "user_password_confirmation", :with => 'helloworld'
+    fill_in "user_username", :with => 'testermember'
+    fill_in "user_email", :with => 'tester@yahoo.com'
+    fill_in "user_password", :with => 'Helloworld2'
+    fill_in "user_password_confirmation", :with => 'Helloworld2'
     click_button 'Sign up'
   end
 
   def sign_in
     within("form#new_user") do
     fill_in "user_email", :with => User.find(1).email
-    fill_in "user_password", :with => 'helloworld'
+    fill_in "user_password", :with => 'Helloworld2'
   end
     click_on 'Log In'
     page.has_text?('Signed in successfully.')
