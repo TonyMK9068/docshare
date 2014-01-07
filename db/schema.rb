@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140105001036) do
+ActiveRecord::Schema.define(:version => 20140107093153) do
 
   create_table "charges", :force => true do |t|
     t.integer  "user_id"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20140105001036) do
   add_index "pages", ["user_id"], :name => "index_pages_on_user_id"
 
   create_table "roles", :id => false, :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "page_id"
+    t.integer  "user_id",    :null => false
+    t.integer  "page_id",    :null => false
     t.string   "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

@@ -5,37 +5,35 @@
   %h1.center
     Hello #{current_user.username}
 .eight.columns
-  %h3
-    %strong You have created #{pluralize(current_user.pages_owned.count, 'page')}!
-  %p Select a page from below to view or edit:
+  - if current_user.pages.count > 0
+    %h3
+      %strong You have created #{pluralize(current_user.pages_owned.count, 'page')}!
+      %p Select a page from below to view or edit:
   
-  / User created table
-  %table.user-created-tables
-    %thead
-      %tr
-        %th Title
-        %th URL
-        %th Date Created
-        %th Last Update
-        %th Public?
-        %th Delete?
-    %tbody
-      - current_user.pages_owned.each do |page|
+    / User created table
+    %table.user-created-tables
+      %thead
         %tr
-          %td= page.title
-          %td= link_to page_path(page), page
-          %td= format_local_time(page.created_at)
-          %td= format_local_time(page.updated_at)
-          %td= page.is_public?
-          %td= link_to 'x',page, method: :delete, class: 'delete-button'
+          %th Title
+          %th URL
+          %th Date Created
+          %th Last Update
+          %th Public?
+          %th Delete?
+      %tbody
+        - current_user.pages.each do |page|
+          %tr
+            %td= page.title
+            %td= link_to page_path(page), page
+            %td= format_local_time(page.created_at)
+            %td= format_local_time(page.updated_at)
+            %td= page.is_public?
+            %td= link_to 'x',page, method: :delete, class: 'delete-button'
   %br
   
   / Is a collaborator of.....
-  %h5
-    %strong Pages you've been added as a collaborator:
-  - if current_user.pages_collaborating_on.count < 1
-    %p Sorry, no users have added you
-  - else
+  - if current_user.collaborations.count > 0
+    %h5 Projects you've been allowed access to collaborate on
     %table
       %thead
         %tr
@@ -44,12 +42,12 @@
           %th Last Updated
           %th Private?
       %tbody
-        - current_user.pages_collaborating_on.each do |page|
+        - current_user.collaborations.each do |project|
           %tr
-            %td= page.title
-            %td= link_to 'View page', page
-            %td= page.updated_at.localtime.strftime("%b %d, %Y")
-            %td= page.is_private?
+            %td= project.title
+            %td= link_to 'View page', project
+            %td= project.updated_at.localtime.strftime("%b %d, %Y")
+            %td= project.is_private?
             
 / subscriber content
 .five.columns.offset-by-one

@@ -2,22 +2,18 @@ class RolesController < ApplicationController
   respond_to :html, :js
 
   def create
-    @page = Page.find(params[:page_id])
+    @project = Page.find(params[:page_id])
     @status = Role.status_value(params)
     
-    @user = User.find_user(params[:collaborator] || params[:viewer] || '') # if no user found assign value yhat will raise exception on #save
-    
-    if @user.blank?
-      flash[:error] = 'User not found'
+    @user = User.find_user(params[:collaborator] || params[:viewer] || '') # if no user found assign value that will raise exception on #save
+
+    @role = @user.roles.build(status: @status)
+    @role.page_id = @project.id
+    if @role.save
+      redirect_to edit_page_path(@project), notice: 'User granted access.'
+    else
+      flash[:error] = 'Error granting access. Please try again later.'
       render 'pages/index'
-    else 
-      @role = @user.roles.build(page_id: @page.id, status: @status)
-      if @role.save
-        redirect_to edit_page_path(@page), notice: 'User granted access.'
-      else
-        flash[:error] = 'Error granting access. Please try again later.'
-        render 'pages/index'
-      end
     end
   end
 

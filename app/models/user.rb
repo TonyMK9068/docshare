@@ -1,45 +1,40 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :subscriber
+  attr_accessible :email, :password, :password_confirmation, :username, :subscriber
 
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, 
-         :rememberable, :trackable, :secure_validatable, :session_limitable
+         :trackable, :secure_validatable, :session_limitable
 
-  has_many :roles, dependent: :destroy
-  has_many :pages,  through: :roles
+  has_many :pages, dependent: :destroy
+  has_many :roles
+  has_many :projects, through: :roles
   has_many :charges
   
   validates :email, :email => true
   validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
-  validates_format_of :username, with: /\A^[a-zA-Z0-9-]+\z/
+  validates_format_of :username, with: /\A([a-zA-Z]+[a-zA-Z0-9]*(?:[-_]?[a-zA-Z0-9]+)?)\z/
   
   def has_charges?
-    self.charges.count > 0
+    charges.count > 0
   end
   
   def self.with_attribute_value(name)
-    User.find_by_email(name) || User.find_by_username(name)
+    find_by_email(name) || find_by_username(name)
   end
   
   def self.find_user(input)
-    User.with_attribute_value(input).presence
+    with_attribute_value(input).presence
   end
 
   def pages_owned
-    Role.owners.joins(:page).where(user_id: self.id).all.collect do |role|
-      Page.find role.page_id
-    end
+    pages.all
   end
   
-  def pages_collaborating_on
-    Role.collaborators.joins(:page).where(user_id: self.id).all.collect do |role|
-      Page.find role.page_id
-    end
+  def collaborations
+    roles.collaborator.collect { |role| Page.find role.page_id }
   end
   
-  def pages_viewable
-    Role.viewers.joins(:page).where(user_id: self.id).all.collect do |role|
-      Page.find role.page_id
-    end
+  def private_projects_shared
+    roles.viewer.collect { |role| Page.find role.page_id }
   end
 
   # todo: check for method for find(version.originator.to_i).username
