@@ -19,7 +19,7 @@ class RolesController < ApplicationController
 
   def destroy
     @role = Page.find(params[:id])
-    if @role.delete
+    if @role.destroy
       redirect_to :back, notice: 'Access revoked successfully.'
     else
       flash[:error] = 'Error revoking access. Please try again.'

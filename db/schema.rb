@@ -11,12 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140107093153) do
+ActiveRecord::Schema.define(:version => 20140117230809) do
 
   create_table "charges", :force => true do |t|
     t.integer  "user_id"
-    t.string   "customer_id"
-    t.boolean  "success",     :default => true
+    t.boolean  "success",    :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
@@ -46,6 +45,11 @@ ActiveRecord::Schema.define(:version => 20140107093153) do
 
   add_index "roles", ["page_id", "user_id"], :name => "index_roles_on_page_id_and_user_id"
 
+  create_table "subscriptions", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                                :default => "",    :null => false
     t.string   "encrypted_password",                   :default => "",    :null => false
@@ -66,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20140107093153) do
     t.string   "username"
     t.boolean  "subscriber",                           :default => false
     t.string   "unique_session_id",      :limit => 20
+    t.string   "stripe_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
