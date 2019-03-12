@@ -1,15 +1,13 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :username, :subscriber
-
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, 
-         :trackable, :secure_validatable, :session_limitable
+         :trackable
 
   has_many :pages, dependent: :destroy
   has_many :roles
   has_many :projects, through: :roles
   has_many :charges
   
-  validates :email, :email => true
+  validates_presence_of :email
   validates :username, length: { minimum: 6 }, presence: true, uniqueness: true
   validates_format_of :username, with: /\A([a-zA-Z]+[a-zA-Z0-9]*(?:[-_]?[a-zA-Z0-9]+)?)\z/
   
